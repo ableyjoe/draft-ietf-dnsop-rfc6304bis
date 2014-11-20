@@ -75,11 +75,11 @@
       </address>
     </author>
 
-    <date day="19" month="November" year="2014"/>
+    <date day="20" month="November" year="2014"/>
 
     <abstract>
       <t>Many sites connected to the Internet make use of IPv4 addresses
-        that are not globally-unique.  Examples are the addresses
+        that are not globally unique.  Examples are the addresses
         designated in RFC 1918 for private use within individual
         sites.</t>
 
@@ -102,12 +102,8 @@
 	named after the Autonomous System Number (ASN) that was
 	assigned to it.</t>
 
-      <t>RFC6304 described the steps required to install a new AS112
-        node, and offered advice relating to such a node's operation.
-        This document updates that advice to facilitate the addition
-        and removal of zones for which query traffic will be sunk at
-        AS112 nodes, using DNAME, whilst still supporting direct
-        delegations to AS112 name servers.</t>
+      <t>This document describes the steps required to install a new AS112
+        node and offers advice relating to such a node's operation.</t>
 
       <t>This document obsoletes RFC6304.</t>
   </abstract>
@@ -121,7 +117,7 @@
 	target="I-D.ietf-dnsop-as112-dname"/>.</t>
 
       <t>"TBA-address-v4" refers to the address within TBA-prefix-v4
-	assigned to the name server BLACKHOLE.AS112.ARPA.  Similarly,
+	assigned to the nameserver BLACKHOLE.AS112.ARPA.  Similarly,
 	"TBA-address-v6" refers to the corresponding address within
 	TBA-prefix-v6.</t>
 
@@ -165,8 +161,8 @@
 	servers</xref>.</t>
 
       <t>The AS112 project encompasses a loosely coordinated
-	collection of independently operated name servers. Each
-	name server functions as a single node in an AS112 <xref
+	collection of independently operated nameservers. Each
+	nameserver functions as a single node in an AS112 <xref
 	target="RFC4786">anycast cloud</xref>, and
 	is configured to answer authoritatively for a particular
 	set of nominated zones.</t>
@@ -181,7 +177,7 @@
         <section title="Direct Delegation">
           <t><xref target="RFC6304"/> describes an approach whereby
             zones whose traffic should be directed towards an AS112
-            sink should be directly delegated to AS112 name servers.
+            sink should be directly delegated to AS112 nameservers.
             Correspondingly, each AS112 node is manually configured
             to answer appropriately for those zones.</t>
 
@@ -208,7 +204,7 @@
 
       <section title="Zones" anchor="zones">
 	<t>To support Direct Delegation AS112 service, AS112 name
-	  servers answer authoritatively for the following zones,
+	  nameservers answer authoritatively for the following zones,
 	  corresponding to <xref target="RFC1918"/> private-use
 	  netblocks:
 
@@ -220,7 +216,7 @@
 	  </list>
 
 	  and the following zone, corresponding to the "link
-	  local" netblock 169.254.0.0/16 described in <xref
+	  local" netblock 169.254.0.0/16 listed in <xref
 	  target="RFC6890"/>:
 
           <list style="symbols">
@@ -253,7 +249,7 @@
       <section title="Nameservers" anchor="nameServers">
 	<t>To support Direct Delegation AS112 service, the relevant
 	  zones listed in <xref target="zones"/> are delegated to
-	  the two name servers BLACKHOLE-1.IANA.ORG (192.175.48.6,
+	  the two nameservers BLACKHOLE-1.IANA.ORG (192.175.48.6,
 	  2620:4f:8000::6) and BLACKHOLE-2.IANA.ORG (192.175.48.42,
 	  2620:4f:8000::42).</t>
 
@@ -263,18 +259,18 @@
 	  servers. PRISONER.IANA.ORG receives mainly dynamic update
 	  queries.</t>
 
-	<t>The addresses of all these name servers are covered by
+	<t>The addresses of all these nameservers are covered by
 	  the single IPv4 prefix 192.175.48.0/24 and the IPv6 prefix
           2620:4f:8000::/48. To date, IPv6 transport for these
 	  nameservers has only been available for pre-production
 	  testing. Direction to the IANA to add AAAA RRSets for the
-	  owner names of these name servers can be found in <xref
+	  owner names of these nameservers can be found in <xref
 	  target="ianaConsiderations"/>.</t>
 
         <t>To support DNAME Redirection AS112 service, the single zone
-	  EMPTY.AS112.ARPA is delegated to the single name server
+	  EMPTY.AS112.ARPA is delegated to the single nameserver
 	  BLACKHOLE.AS112.ARPA (TBA-address-v4, TBA-address-v6).
-	  The addresses of that name server are covered by the
+	  The addresses of that nameserver are covered by the
 	  single IPv4 prefix TBA-prefix-v4, and the single IPv6
 	  prefix TBA-prefix-v6.</t>
       </section>
@@ -290,7 +286,7 @@
 	    <t>inter-domain routing with <xref
 	      target="RFC4271">BGP</xref>;</t>
 
-            <t>DNS authoritative server operations;</t>
+            <t>DNS authoritative server operations; and,</t>
 
 	    <t><xref target="RFC4786">anycast</xref> distribution
 	      of DNS services.</t>
@@ -304,7 +300,7 @@
 	  the Internet community (as opposed to private use), it
 	  may well be advantageous to choose a location that is
 	  easily (and cheaply) reachable by multiple providers,
-	  such as an Internet exchange point.</t>
+	  such as an Internet Exchange Point.</t>
 
         <t>AS112 nodes may advertise their service prefix to BGP
           peers for local use (analogous to a conventional peering
@@ -323,19 +319,19 @@
 
       <section title="Operating System and Host Considerations">
         <t>Examples in this document are based on UNIX and UNIX-like
-          operating systems, but other operating systems exist which
+          operating systems, but other operating systems exist that
           are suitable for use in construction of an AS112 node.</t>
 
-        <t>The chosen platform should include support for either
-          cloned loopback interfaces, or the capability to bind
+        <t>The chosen platform should include either support for
+          cloned loopback interfaces or the capability to bind
 	  multiple addresses to a single loopback interface. The
-	  addresses of the name servers listed in <xref
+	  addresses of the nameservers listed in <xref
 	  target="nameServers"/> will be configured on these
 	  interfaces in order that the DNS software can respond to
 	  queries properly.</t>
 
         <t>A host that is configured to act as an AS112 anycast
-          node should be dedicated to that purpose, and should not be
+          node should be dedicated to that purpose and should not be
           used to simultaneously provide other services. This guidance
           is provided due to the unpredictable (and occasionally high)
           traffic levels that AS112 nodes have been seen to attract.</t>
@@ -349,14 +345,14 @@
 
         <t>Wrapper scripts or other arrangements should be employed to
           ensure that the anycast service prefix for AS112 is not advertised
-          while either the anycast addresses are not configured, or while
+          while either the anycast addresses are not configured or
           the DNS software is not running.</t>
       </section>
 
       <section title="Routing Software">
-        <t>AS112 nodes signal the availability of AS112 name servers
+        <t>AS112 nodes signal the availability of AS112 nameservers
           to the Internet using <xref target="RFC4271">BGP</xref>:
-	  each AS112 node is a BGP speaker, and announces the
+	  each AS112 node is a BGP speaker and announces the
 	  prefixes 192.175.48.0/24 and 2620:4f:8000::/48 to the
 	  Internet with origin AS 112 (see also <xref
 	  target="nameServers"/>).</t>
@@ -368,13 +364,14 @@
 	  nodes.</t>
 
 	<t>The "bgpd.conf" file is used by Quagga's bgpd daemon, which
-	  provides BGP protocol support. The router id in this example
+	  provides BGP support. The router ID in this example
 	  is 203.0.113.1; the AS112 node peers with external peers
 	  192.0.2.1, 192.0.2.2, 2001:db8::1 and 2001:db8::2.  Note
-	  the local AS number 112, and the origination of the
-	  prefixes 192.175.48.0/24 and 2620:4f:8000::/48 to support
-	  Direct Delegation AS112 service; the IPv4 prefix TBA-prefix-v4 and
-	  the IPv6 prefix TBA-prefix-v6 support DNAME Redirection.</t>
+	  the local AS number is 112, and the service prefixes originated
+	  from the AS112 node to support Direct Delegation service are 
+          192.175.48.0/24 and 2620:4f:8000::/48; the IPv4 prefix
+          TBA-prefix-v4 and the IPv6 prefix TBA-prefix-v6 support DNAME
+          Redirection.</t> 
 
 	<t>For clarity, an IPv4-only AS112 node need not configure
 	  any of the IPv6 elements that follow; similarly, an IPv6-only
@@ -473,76 +470,78 @@ interface eth0
         <t>Although the queries received by AS112 nodes are
           definitively misdirected, it is important that they be
 	  answered in a manner that is accurate and consistent.
-          For this reason AS112 nodes operate as <xref
-          target="RFC1034">fully-functional
+          For this reason, AS112 nodes operate as <xref
+          target="RFC1034">fully functional
           and standards-compliant DNS authoritative servers</xref>,
           and hence require appropriate DNS software.</t>
 
         <t>Examples in this document are based on
 	  <eref target="http://www.isc.org/software/BIND/">ISC
-	  BIND9</eref>, but other DNS software exists which is
+	  BIND9</eref>, but other DNS software exists that is
 	  suitable for use in construction of an AS112 node.</t>
 
 	<t>The following is a sample BIND9 "named.conf" file for a
-	  dedicated AS112 server. Note that the name server is
-	  configured to act as an authoritative-only server (i.e.
-	  recursion is disabled).  The name server is also configured
-	  to listen on the various AS112 anycast name server addresses,
+	  dedicated AS112 server. Note that the nameserver is
+	  configured to act as an authoritative-only server (i.e.,
+	  recursion is disabled).  The nameserver is also configured
+	  to listen on the various AS112 anycast nameserver addresses,
 	  as well as its local addresses.</t>
 
         <figure>
           <artwork>
 // named.conf
 
-// global options
+// Global options
 
 options {
   listen-on {
     127.0.0.1;         // localhost
 
-  // the following address is node-dependent, and should be set to
-  // something appropriate for the new AS112 node
+  // The following address is node-dependent and should be set to
+  // something appropriate for the new AS112 node.
 
-    203.0.113.1;       // local address (globally-unique, unicast)
+    203.0.113.1;       // local address (globally unique, unicast)
 
-  // the following addresses are used to support Direct Delegation
-  // AS112 service, and are the same for all AS112 nodes
+  // The following addresses are used to support Direct Delegation
+  // AS112 service, and are the same for all AS112 nodes.
 
-    192.175.48.1;      // PRISONER.IANA.ORG (anycast)
-    192.175.48.6;      // BLACKHOLE-1.IANA.ORG (anycast)
-    192.175.48.42;     // BLACKHOLE-2.IANA.ORG (anycast)
+    192.175.48.1;      // prisoner.iana.org (anycast)
+    192.175.48.6;      // blackhole-1.iana.org (anycast)
+    192.175.48.42;     // blackhole-2.iana.org (anycast)
 
-  // the following address is used to support DNAME Redirection
-  // AS112 service, and is the same for all AS112 nodes
+  // The following address is used to support DNAME Redirection
+  // AS112 service, and is the same for all AS112 nodes.
 
-    TBA-address-v4;    // BLACKHOLE.AS112.ARPA (anycast)
+    TBA-address-v4;    // blackhole.as112.arpa (anycast)
   };
 
   listen-on-v6 {
     ::1;               // localhost
 
-  // the following addresses are used to support Direct Delegation
-  // AS112 service, and are the same for all AS112 nodes
+  // The following addresses are used to support Direct Delegation
+  // AS112 service, and are the same for all AS112 nodes.
 
-    2620:4f:8000::1;   // PRISONER.IANA.ORG (anycast)
-    2620:4f:8000::6;   // BLACKHOLE-1.IANA.ORG (anycast)
-    2620:4f:8000::42;  // BLACKHOLE-2.IANA.ORG (anycast)
+    2620:4f:8000::1;   // prisoner.iana.org (anycast)
+    2620:4f:8000::6;   // blackhole-1.iana.org (anycast)
+    2620:4f:8000::42;  // blackhole-2.iana.org (anycast)
 
-  // the following address is used to support DNAME Redirection
-  // AS112 service, and is the same for all AS112 nodes
+  // The following address is used to support DNAME Redirection
+  // AS112 service, and is the same for all AS112 nodes.
 
-    TBA-address-v6;    // BLACKHOLE.AS112.ARPA (anycast)
+    TBA-address-v6;    // blackhole.as112.arpa (anycast)
   };
 
   directory "/var/named";
   recursion no;        // authoritative-only server
 };
 
-// log queries,  so that when people call us about unexpected
+// Log queries, so that when people call us about unexpected
 // answers to queries they didn't realise they had sent, we
 // have something to talk about.  Note that activating this
 // naively has the potential to create high CPU load and consume
-// enormous amounts of disk space.
+// enormous amounts of disk space.  This example retains 2 old 
+// versions at a maximum of 500MB each before rotating out the 
+// oldest one.
 
 logging {
   channel "querylog" { 
@@ -583,9 +582,9 @@ zone "254.169.in-addr.arpa" { type master; file "db.dd-empty"; };
 
 zone "empty.as112.arpa" { type master; file "db.dr-empty"; };
 
-// also answer authoritatively for the HOSTNAME.AS112.NET and
-// HOSTNAME.AS112.ARPA zones, which contain data of operational
-// relevance
+// Also answer authoritatively for the HOSTNAME.AS112.NET and
+// HOSTNAME.AS112.ARPA zones, which contains data of operational
+// relevance.
 
 zone "hostname.as112.net" {
   type master;
@@ -604,8 +603,8 @@ zone "hostname.as112.arpa" {
 	  in <xref target="zones"/> that support Direct Delegation
 	  AS112 service. Note that the RNAME specified in the SOA
 	  record corresponds to hostmaster@root-servers.org, a
-	  suitable e-mail address for technical queries about these
-	  zones.</t>
+	  suitable email address for receiving technical queries 
+	  about these zones.</t>
 
         <figure>
           <artwork>
@@ -614,29 +613,29 @@ zone "hostname.as112.arpa" {
 ; Empty zone for Direct Delegation AS112 service.
 ;
 $TTL    1W
-@  IN  SOA  PRISONER.IANA.ORG. HOSTMASTER.ROOT-SERVERS.ORG. (
+@  IN  SOA  prisoner.iana.org. hostmaster.root-servers.org. (
                                1       ; serial number
                                1W      ; refresh
                                1M      ; retry
                                1W      ; expire
                                1W )    ; negative caching TTL
 ;
-       NS     BLACKHOLE-1.IANA.ORG.
-       NS     BLACKHOLE-2.IANA.ORG.
+       NS     blackhole-1.iana.org.
+       NS     blackhole-2.iana.org.
 ;
 ; There should be no other resource records included in this zone.
 ;
 ; Records that relate to RFC 1918-numbered resources within the
 ; site hosting this AS112 node should not be hosted on this
-; name server.
+; nameserver.
           </artwork>
         </figure>
 
-        <t>The "db.dr-empty" file follows, below. This is the source
+        <t>The "db.dr-empty" file follows below. This is the source
 	  data used to populate the EMPTY.AS112.ARPA zone that
 	  supports DNAME Redirection AS112 service. Note that the
 	  RNAME specified in the SOA record corresponds to
-	  noc@dns.icann.org, a suitable e-mail address for technical
+	  noc@dns.icann.org, a suitable email address for technical
 	  queries about this zone.</t>
 
         <figure>
@@ -646,20 +645,20 @@ $TTL    1W
 ; Empty zone for Direct Delegation AS112 service.
 ;
 $TTL    1W
-@  IN  SOA  BLACKHOLE.AS112.ARPA. NOC.DNS.ICANN.ORG. (
+@  IN  SOA  blackhole.as112.arpa. noc.dns.icann.org. (
                                1       ; serial number
                                1W      ; refresh
                                1M      ; retry
                                1W      ; expire
                                1W )    ; negative caching TTL
 ;
-       NS     BLACKHOLE.AS112.ARPA.
+       NS     blackhole.as112.arpa.
 ;
 ; There should be no other resource records included in this zone.
 ;
 ; Records that relate to RFC 1918-numbered resources within the
 ; site hosting this AS112 node should not be hosted on this
-; name server.
+; nameserver.
           </artwork>
         </figure>
 
@@ -667,11 +666,11 @@ $TTL    1W
 	<t>The "db.hostname.as112.net" and "db.hostname.as112.arpa"
 	  files follow, below.  These zones contain various resource
 	  records that provide operational data to users for
-	  troubleshooting or measurement purposes, and should be
+	  troubleshooting or measurement purposes; the data should be
 	  edited to suit local circumstances.  Note that the responses
 	  to the queries "HOSTNAME.AS112.NET IN TXT" and
 	  "HOSTNAME.AS112.ARPA IN TXT" should fit within a 512 octet
-	  DNS/UDP datagram: i.e. it should be available over UDP
+	  DNS/UDP datagram: i.e., it should be available over UDP
 	  transport without requiring EDNS0 support by the client.</t>
 
 	<t>The optional <xref target="RFC1876">LOC record</xref>
@@ -683,15 +682,15 @@ $TTL    1W
 ; db.hostname.as112.net
 ;
 $TTL    1W
-@       SOA     SERVER.EXAMPLE.NET. ADMIN.EXAMPLE.NET. (
+@       SOA     server.example.net. admin.example.net. (
                         1               ; serial number
                         1W              ; refresh
                         1M              ; retry
                         1W              ; expire
                         1W )            ; negative caching TTL
 ;
-        NS      BLACKHOLE-1.IANA.ORG.
-        NS      BLACKHOLE-2.IANA.ORG.
+        NS      blackhole-1.iana.org.
+        NS      blackhole-2.iana.org.
 ;
         TXT     "Name of Facility or similar" "City, Country"
         TXT     "See http://www.as112.net/ for more information."
@@ -705,14 +704,14 @@ $TTL    1W
 ; db.hostname.as112.arpa
 ;
 $TTL    1W
-@       SOA     SERVER.EXAMPLE.NET. ADMIN.EXAMPLE.NET. (
+@       SOA     server.example.net. admin.example.net. (
                         1               ; serial number
                         1W              ; refresh
                         1M              ; retry
                         1W              ; expire
                         1W )            ; negative caching TTL
 ;
-        NS      BLACKHOLE.AS112.ARPA.
+        NS      blackhole.as112.arpa.
 ;
         TXT     "Name of Facility or similar" "City, Country"
         TXT     "See http://www.as112.net/ for more information."
@@ -722,11 +721,11 @@ $TTL    1W
         </figure>
       </section>
 
-      <section title="Testing a Newly-Installed Node">
+      <section title="Testing a Newly Installed Node">
 	<t>The BIND9 tool "dig" can be used to retrieve the TXT
 	  resource records associated with the names "HOSTNAME.AS112.NET"
 	  and "HOSTNAME.AS112.ARPA", directed at one of the AS112
-	  anycast name server addresses.  Continuing the example
+	  anycast nameserver addresses.  Continuing the example
 	  from above, the response received should indicate the
 	  identity of the AS112 node that responded to the query.
 	  See <xref target="dns"/> for more details about the
@@ -734,7 +733,7 @@ $TTL    1W
 
         <figure>
           <artwork>
-    % dig @PRISONER.IANA.ORG HOSTNAME.AS112.NET txt +short +norec
+    % dig @prisoner.iana.org hostname.as112.net txt +short +norec
     "Name of Facility or similar" "City, Country"
     "See http://www.as112.net/ for more information."
     %
@@ -743,15 +742,15 @@ $TTL    1W
 
         <t>If the response received indicates a different node is being
           used, then there is probably a routing problem to solve. If
-          there is no response received at all, there might be host
-          or name server problem. Judicious use of tools such as
-          traceroute, and consultation of BGP looking glasses might
+          there is no response received at all, there might be a host
+          or nameserver problem. Judicious use of tools such as
+          traceroute and consultation of BGP looking glasses might
           be useful in troubleshooting.</t>
 
         <t>Note that an appropriate set of tests for a new server will
           include queries sent from many different places within the
           expected service area of the node, using both UDP and TCP
-          transport, and exercising all three AS112 anycast name server
+          transport, and exercising all three AS112 anycast nameserver
           addresses.</t>
       </section>
     </section>
@@ -766,21 +765,21 @@ $TTL    1W
       </section>
 
       <section title="Downtime">
-        <t>An AS112 node that needs to go off-line (e.g. for planned
+        <t>An AS112 node that needs to go off-line (e.g., for planned
           maintenance or as part of the diagnosis of some problem)
           should stop advertising the AS112 service prefixes to its BGP
           peers. This can be done by shutting down the routing software
           on the node altogether or by causing the routing system to
           withdraw the route.</t>
 
-        <t>Withdrawal of the service prefixes is important in order to avoid
+        <t>Withdrawing the service prefixes is important in order to avoid
           blackholing query traffic in the event that the DNS software on
           the node is not functioning normally.</t>
       </section>
 
       <section title="Statistics and Measurement">
         <t>Use of the AS112 node should be measured in order to track
-          long-term trends, identify anomalous conditions, and to ensure
+          long-term trends, identify anomalous conditions, and ensure
           that the configuration of the AS112 node is sufficient to handle
           the query load.</t>
 
@@ -792,6 +791,13 @@ $TTL    1W
             <t><eref target="http://dns.measurement-factory.com/tools/dnstop/">dnstop</eref></t>
             <t><eref target="http://dns.measurement-factory.com/tools/dsc/">DSC</eref></t>
           </list>
+        </t>
+
+        <t>Operators of AS112 nodes should also consider participating
+          in collection events as part of a larger, co-ordinated effort
+          to gather important baselines.  One example of such an effort is
+          <eref target="https://www.dns-oarc.net/oarc/data/ditl/">Day-in-the-Life</eref>
+          coordinated by the <eref target="https://www.dns-oarc.net/">DNS-OARC</eref>.
         </t>
       </section>
     </section>
@@ -814,11 +820,15 @@ $TTL    1W
       <t>Information about an AS112 node should also be published within
 	the DNS, within the "HOSTNAME.AS112.NET" and "HOSTNAME.AS112.ARPA"
 	zones. See <xref target="dns"/> for more details.</t>
+
+      <t>AS112 operators should also be aware of the measures described in
+        <xref target="RFC6305"/> and direct site administrators
+        appropriately.</t>
     </section>
 
     <section title="On the Future of AS112 Nodes">
       <t>It is recommended practice for the operators of recursive
-	name servers to answer queries for zones served by AS112
+	nameservers to answer queries for zones served by AS112
 	nodes locally, such that queries never have an opportunity
 	to reach AS112 servers <xref target="RFC6303"/>. Operational
 	experience with AS112 nodes does not currently indicate an
@@ -850,7 +860,7 @@ $TTL    1W
 
     <section title="IANA Considerations" anchor="ianaConsiderations">
       <section title="General">
-	<t>The name servers associated with Direct Delegation AS112
+	<t>The nameservers associated with Direct Delegation AS112
 	  service are all named under the domain IANA.ORG (see <xref
 	  target="nameServers"/>). However, the anycast infrastructure
 	  itself is operated by a loosely-coordinated, diverse mix
@@ -880,7 +890,7 @@ $TTL    1W
         <section title="IPv6 Transport for Direct Delegation AS112 Servers"
             anchor="ianaAAAA">
           <t>The IANA is directed to add the following AAAA resource
-            records for the three Direct Delegation AS112 name servers
+            records for the three Direct Delegation AS112 nameservers
             named under IANA.ORG:</t>
 
           <texttable>
@@ -959,9 +969,11 @@ $TTL    1W
 	locally within a site. Hosts that send queries to AS112
 	servers may well leak information relating to private
 	infrastructure to the public network, and this could present
-	a security risk. This risk is orthogonal to the presence
-	or absence of authoritative servers for these zones in the
-	public DNS infrastructure, however.</t>
+	a security risk.  Additionally, AS112 operators may log this
+        information making it further subject to whatever security 
+        and privacy risks that might entail.  These risks are orthogonal
+        to the presence or absence of authoritative servers for these
+        zones in the public DNS infrastructure, however.</t>
 
       <t>Queries that are answered by AS112 servers are usually
 	unintentional; it follows that the responses from AS112
@@ -971,13 +983,13 @@ $TTL    1W
 	to be contacted by operators of remote infrastructure who
         believe their security has been violated. Advice to those
 	who mistakenly believe that responses from AS112 nodes
-	constitutes an attack on their infrastructure can be found
+	constitute an attack on their infrastructure can be found
 	in <xref target="RFC6305"/>.</t>
 
       <t>The deployment of AS112 nodes is very loosely coordinated
 	compared to other services distributed using anycast. The
 	malicious compromise of an AS112 node and subversion of the
-	data served by the node is hence more difficult to detect
+	data served by the node are hence more difficult to detect
 	due to the lack of central management. Since it is conceivable
 	that changing the responses to queries received by AS112
 	nodes might influence the behaviour of the hosts sending
@@ -987,13 +999,13 @@ $TTL    1W
       <t>Operators of AS112 should take appropriate measures to
         ensure that AS112 nodes are appropriately protected from
         compromise, such as would normally be employed for production
-        name server or network infrastructure. The guidance provided
-        for root name servers in <xref target="RFC2870"/> may be
+        nameserver or network infrastructure. The guidance provided
+        for root nameservers in <xref target="RFC2870"/> may be
         instructive.</t>
 
       <t>The zones hosted by AS112 servers are not signed with
         DNSSEC <xref target="RFC4033"/>. Given the distributed
-        and loosely-coordinated structure of the AS112 service,
+        and loosely coordinated structure of the AS112 service,
         the zones concerned could only be signed if the private
         key material used was effectively public, obviating any
         security benefit resulting from the use of those keys.</t>
@@ -1006,9 +1018,9 @@ $TTL    1W
       <t>The authors  wish to acknowledge the assistance of Bill
         Manning, John Brown, Marco D'Itri, Daniele Arena, Stephane
         Bortzmeyer, Frank Habicht, Chris Thompson, Peter Losher,
-        Peter Koch, Alfred Hoenes, S. Moonesamy and Mehmet Akcin
-        in the preparation of <xref target="RFC6304"/>, which
-	this document supercedes.</t>
+        Peter Koch, Alfred Hoenes, S. Moonesamy, Mehmet Akcin and
+        Aleksi Suhonen in the preparation of <xref target="RFC6304"/>,
+        which this document supercedes.</t>
     </section>
   </middle>
 
@@ -1061,7 +1073,7 @@ $TTL    1W
 	root servers.</t>
 
      <t>The idea of off-loading IN-ADDR.ARPA queries relating to
-       <xref target="RFC1918"/> addresses from the root name servers
+       <xref target="RFC1918"/> addresses from the root nameservers
        was first proposed by Bill Manning and John Brown.</t>
 
      <t>The use of anycast for distributing authoritative DNS service
@@ -1082,7 +1094,7 @@ $TTL    1W
      <t><xref target="RFC6304"/>, the precursor to this document,
        was published in July 2011.</t>
 
-     <t>The use of anycast name servers in the AS112 project contributed
+     <t>The use of anycast nameservers in the AS112 project contributed
        to the operational experience of anycast DNS services, and
        it can be seen as a precursor to the anycast distribution
        of other authoritative DNS servers in subsequent years (e.g.,
@@ -1140,6 +1152,32 @@ $TTL    1W
           registry.</t>
 
         <t>Add shout-out to Pearl and Leo.</t>
+      </section>
+
+      <section title="draft-ietf-dnsop-rfc6304bis-05">
+        <t>As per IESG review and a replay of the same comment from Pete
+          Resnick made of the review of the draft of RFC 6304, switch from
+          Informational to Best Current Practice.</t>
+
+        <t>Expand the first paragraph in the Security Considerations
+          section to include a word on the logging of such leaked 
+          information.</t>
+
+        <t>Add mention about further measurement and analysis contribution
+          through the DNS-OARC.</t>
+
+        <t>Add another reference to RFC 6305 in Communication section.</t>
+
+        <t>Amend the abstract slightly to shorten it and re-state 
+          second-last paragraph as if RFC 6304 neever existed.</t>
+
+        <t>Add some more missing changes suggests at RFC 6304 AUTH48
+          phase.</t>
+
+        <t>Re-sync some more language with RFC 6304 after another edit
+          round post-AUTH48.</t>
+
+        <t>Add shout-out to Aleksi Suhonen.</t>
       </section>
     </section>
   </back>

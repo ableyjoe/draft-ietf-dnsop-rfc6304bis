@@ -6,7 +6,7 @@ Network Working Group                                           J. Abley
 Internet-Draft                                                 Dyn, Inc.
 Obsoletes: 6304 (if approved)                                   W. Maton
 Intended status: Best Current Practice                             OttIX
-Expires: May 23, 2015                                  November 19, 2014
+Expires: May 24, 2015                                  November 20, 2014
 
 
                       AS112 Nameserver Operations
@@ -15,7 +15,7 @@ Expires: May 23, 2015                                  November 19, 2014
 Abstract
 
    Many sites connected to the Internet make use of IPv4 addresses that
-   are not globally-unique.  Examples are the addresses designated in
+   are not globally unique.  Examples are the addresses designated in
    RFC 1918 for private use within individual sites.
 
    Devices in such environments may occasionally originate Domain Name
@@ -34,11 +34,8 @@ Abstract
    the corresponding authoritative servers.  The AS112 project is named
    after the Autonomous System Number (ASN) that was assigned to it.
 
-   RFC6304 described the steps required to install a new AS112 node, and
-   offered advice relating to such a node's operation.  This document
-   updates that advice to facilitate the addition and removal of zones
-   for which query traffic will be sunk at AS112 nodes, using DNAME,
-   whilst still supporting direct delegations to AS112 name servers.
+   This document describes the steps required to install a new AS112
+   node and offers advice relating to such a node's operation.
 
    This document obsoletes RFC6304.
 
@@ -49,24 +46,24 @@ Status of This Memo
 
    Internet-Drafts are working documents of the Internet Engineering
    Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at http://datatracker.ietf.org/drafts/current/.
 
 
 
 
-Abley & Maton             Expires May 23, 2015                  [Page 1]
+
+Abley & Maton             Expires May 24, 2015                  [Page 1]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
-
-   working documents as Internet-Drafts.  The list of current Internet-
-   Drafts is at http://datatracker.ietf.org/drafts/current/.
 
    Internet-Drafts are draft documents valid for a maximum of six months
    and may be updated, replaced, or obsoleted by other documents at any
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on May 23, 2015.
+   This Internet-Draft will expire on May 24, 2015.
 
 Copyright Notice
 
@@ -99,31 +96,31 @@ Table of Contents
      4.3.  Operating System and Host Considerations  . . . . . . . .   7
      4.4.  Routing Software  . . . . . . . . . . . . . . . . . . . .   7
      4.5.  DNS Software  . . . . . . . . . . . . . . . . . . . . . .   9
-     4.6.  Testing a Newly-Installed Node  . . . . . . . . . . . . .  14
+     4.6.  Testing a Newly Installed Node  . . . . . . . . . . . . .  14
    5.  Operations  . . . . . . . . . . . . . . . . . . . . . . . . .  15
      5.1.  Monitoring  . . . . . . . . . . . . . . . . . . . . . . .  15
      5.2.  Downtime  . . . . . . . . . . . . . . . . . . . . . . . .  15
      5.3.  Statistics and Measurement  . . . . . . . . . . . . . . .  15
    6.  Communications  . . . . . . . . . . . . . . . . . . . . . . .  16
    7.  On the Future of AS112 Nodes  . . . . . . . . . . . . . . . .  16
+   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
+     8.1.  General . . . . . . . . . . . . . . . . . . . . . . . . .  17
+     8.2.  IANA Actions  . . . . . . . . . . . . . . . . . . . . . .  17
 
 
 
-Abley & Maton             Expires May 23, 2015                  [Page 2]
+Abley & Maton             Expires May 24, 2015                  [Page 2]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
-   8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
-     8.1.  General . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     8.2.  IANA Actions  . . . . . . . . . . . . . . . . . . . . . .  17
        8.2.1.  IPv6 Transport for Direct Delegation AS112 Servers  .  17
        8.2.2.  Registration in the Special-Purpose AS      Numbers
                Registry  . . . . . . . . . . . . . . . . . . . . . .  18
        8.2.3.  Registration in the IANA IPv4 Special-Purpose
                Address Registry  . . . . . . . . . . . . . . . . . .  18
        8.2.4.  Registration in the IANA IPv6 Special-Purpose
-               Address Registry  . . . . . . . . . . . . . . . . . .  18
+               Address Registry  . . . . . . . . . . . . . . . . . .  19
    9.  Security Considerations . . . . . . . . . . . . . . . . . . .  19
    10. Acknowledgements  . . . . . . . . . . . . . . . . . . . . . .  20
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
@@ -131,14 +128,15 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
      11.2.  Informative References . . . . . . . . . . . . . . . . .  21
      11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  21
    Appendix A.  History  . . . . . . . . . . . . . . . . . . . . . .  22
-   Appendix B.  Revision History and Venue . . . . . . . . . . . . .  22
-     B.1.  draft-jabley-dnsop-rfc6304bis-00  . . . . . . . . . . . .  22
+   Appendix B.  Revision History and Venue . . . . . . . . . . . . .  23
+     B.1.  draft-jabley-dnsop-rfc6304bis-00  . . . . . . . . . . . .  23
      B.2.  draft-ietf-dnsop-rfc6304bis-00  . . . . . . . . . . . . .  23
      B.3.  draft-ietf-dnsop-rfc6304bis-01  . . . . . . . . . . . . .  23
      B.4.  draft-ietf-dnsop-rfc6304bis-02  . . . . . . . . . . . . .  23
      B.5.  draft-ietf-dnsop-rfc6304bis-03  . . . . . . . . . . . . .  23
      B.6.  draft-ietf-dnsop-rfc6304bis-04  . . . . . . . . . . . . .  23
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  23
+     B.7.  draft-ietf-dnsop-rfc6304bis-05  . . . . . . . . . . . . .  24
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
 
 1.  NOTE TO RFC EDITOR AND REVIEWERS
 
@@ -147,7 +145,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    Considerations section of [I-D.ietf-dnsop-as112-dname].
 
    "TBA-address-v4" refers to the address within TBA-prefix-v4 assigned
-   to the name server BLACKHOLE.AS112.ARPA.  Similarly, "TBA-address-v6"
+   to the nameserver BLACKHOLE.AS112.ARPA.  Similarly, "TBA-address-v6"
    refers to the corresponding address within TBA-prefix-v6.
 
    All of "TBA-prefix-v4", "TBA-address-v4", "TBA-prefix-v6" and "TBA-
@@ -165,7 +163,9 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 23, 2015                  [Page 3]
+
+
+Abley & Maton             Expires May 24, 2015                  [Page 3]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -193,7 +193,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    the IN-ADDR.ARPA authoritative servers [RFC5855].
 
    The AS112 project encompasses a loosely coordinated collection of
-   independently operated name servers.  Each name server functions as a
+   independently operated nameservers.  Each nameserver functions as a
    single node in an AS112 anycast cloud [RFC4786], and is configured to
    answer authoritatively for a particular set of nominated zones.
 
@@ -208,8 +208,8 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    [RFC6304] describes an approach whereby zones whose traffic should be
    directed towards an AS112 sink should be directly delegated to AS112
-   name servers.  Correspondingly, each AS112 node is manually
-   configured to answer appropriately for those zones.
+   nameservers.  Correspondingly, each AS112 node is manually configured
+   to answer appropriately for those zones.
 
    The guidance in this document preserves this capability for the zones
    that were originally delegated in this fashion.  AS112 nodes that
@@ -221,7 +221,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 23, 2015                  [Page 4]
+Abley & Maton             Expires May 24, 2015                  [Page 4]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -238,9 +238,9 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 3.2.  Zones
 
-   To support Direct Delegation AS112 service, AS112 name servers answer
-   authoritatively for the following zones, corresponding to [RFC1918]
-   private-use netblocks:
+   To support Direct Delegation AS112 service, AS112 name nameservers
+   answer authoritatively for the following zones, corresponding to
+   [RFC1918] private-use netblocks:
 
    o  10.IN-ADDR.ARPA
 
@@ -249,7 +249,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    o  168.192.IN-ADDR.ARPA
 
    and the following zone, corresponding to the "link local" netblock
-   169.254.0.0/16 described in [RFC6890]:
+   169.254.0.0/16 listed in [RFC6890]:
 
    o  254.169.IN-ADDR.ARPA
 
@@ -271,13 +271,13 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 3.3.  Nameservers
 
    To support Direct Delegation AS112 service, the relevant zones listed
-   in Section 3.2 are delegated to the two name servers BLACKHOLE-
+   in Section 3.2 are delegated to the two nameservers BLACKHOLE-
    1.IANA.ORG (192.175.48.6, 2620:4f:8000::6) and BLACKHOLE-2.IANA.ORG
    (192.175.48.42, 2620:4f:8000::42).
 
 
 
-Abley & Maton             Expires May 23, 2015                  [Page 5]
+Abley & Maton             Expires May 24, 2015                  [Page 5]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -287,16 +287,16 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    the IN-ADDR.ARPA zones served by AS112 name servers.
    PRISONER.IANA.ORG receives mainly dynamic update queries.
 
-   The addresses of all these name servers are covered by the single
-   IPv4 prefix 192.175.48.0/24 and the IPv6 prefix 2620:4f:8000::/48.
-   To date, IPv6 transport for these nameservers has only been available
+   The addresses of all these nameservers are covered by the single IPv4
+   prefix 192.175.48.0/24 and the IPv6 prefix 2620:4f:8000::/48.  To
+   date, IPv6 transport for these nameservers has only been available
    for pre-production testing.  Direction to the IANA to add AAAA RRSets
-   for the owner names of these name servers can be found in Section 8.
+   for the owner names of these nameservers can be found in Section 8.
 
    To support DNAME Redirection AS112 service, the single zone
-   EMPTY.AS112.ARPA is delegated to the single name server
+   EMPTY.AS112.ARPA is delegated to the single nameserver
    BLACKHOLE.AS112.ARPA (TBA-address-v4, TBA-address-v6).  The addresses
-   of that name server are covered by the single IPv4 prefix TBA-prefix-
+   of that nameserver are covered by the single IPv4 prefix TBA-prefix-
    v4, and the single IPv6 prefix TBA-prefix-v6.
 
 4.  Installation of a New Node
@@ -308,7 +308,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    o  inter-domain routing with BGP [RFC4271];
 
-   o  DNS authoritative server operations;
+   o  DNS authoritative server operations; and,
 
    o  anycast [RFC4786] distribution of DNS services.
 
@@ -318,7 +318,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    are intended to provide a public service to the Internet community
    (as opposed to private use), it may well be advantageous to choose a
    location that is easily (and cheaply) reachable by multiple
-   providers, such as an Internet exchange point.
+   providers, such as an Internet Exchange Point.
 
    AS112 nodes may advertise their service prefix to BGP peers for local
    use (analogous to a conventional peering relationship between two
@@ -333,7 +333,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 23, 2015                  [Page 6]
+Abley & Maton             Expires May 24, 2015                  [Page 6]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -344,17 +344,17 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 4.3.  Operating System and Host Considerations
 
    Examples in this document are based on UNIX and UNIX-like operating
-   systems, but other operating systems exist which are suitable for use
+   systems, but other operating systems exist that are suitable for use
    in construction of an AS112 node.
 
-   The chosen platform should include support for either cloned loopback
-   interfaces, or the capability to bind multiple addresses to a single
-   loopback interface.  The addresses of the name servers listed in
+   The chosen platform should include either support for cloned loopback
+   interfaces or the capability to bind multiple addresses to a single
+   loopback interface.  The addresses of the nameservers listed in
    Section 3.3 will be configured on these interfaces in order that the
    DNS software can respond to queries properly.
 
    A host that is configured to act as an AS112 anycast node should be
-   dedicated to that purpose, and should not be used to simultaneously
+   dedicated to that purpose and should not be used to simultaneously
    provide other services.  This guidance is provided due to the
    unpredictable (and occasionally high) traffic levels that AS112 nodes
    have been seen to attract.
@@ -368,13 +368,13 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    Wrapper scripts or other arrangements should be employed to ensure
    that the anycast service prefix for AS112 is not advertised while
-   either the anycast addresses are not configured, or while the DNS
-   software is not running.
+   either the anycast addresses are not configured or the DNS software
+   is not running.
 
 4.4.  Routing Software
 
-   AS112 nodes signal the availability of AS112 name servers to the
-   Internet using BGP [RFC4271]: each AS112 node is a BGP speaker, and
+   AS112 nodes signal the availability of AS112 nameservers to the
+   Internet using BGP [RFC4271]: each AS112 node is a BGP speaker and
    announces the prefixes 192.175.48.0/24 and 2620:4f:8000::/48 to the
    Internet with origin AS 112 (see also Section 3.3).
 
@@ -383,20 +383,20 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    provide suitable BGP support for AS112 nodes.
 
    The "bgpd.conf" file is used by Quagga's bgpd daemon, which provides
-   BGP protocol support.  The router id in this example is 203.0.113.1;
-   the AS112 node peers with external peers 192.0.2.1, 192.0.2.2,
-   2001:db8::1 and 2001:db8::2.  Note the local AS number 112, and the
+   BGP support.  The router ID in this example is 203.0.113.1; the AS112
+   node peers with external peers 192.0.2.1, 192.0.2.2, 2001:db8::1 and
+   2001:db8::2.  Note the local AS number is 112, and the service
 
 
 
-Abley & Maton             Expires May 23, 2015                  [Page 7]
+Abley & Maton             Expires May 24, 2015                  [Page 7]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
-   origination of the prefixes 192.175.48.0/24 and 2620:4f:8000::/48 to
-   support Direct Delegation AS112 service; the IPv4 prefix TBA-
-   prefix-v4 and the IPv6 prefix TBA-prefix-v6 support DNAME
+   prefixes originated from the AS112 node to support Direct Delegation
+   service are 192.175.48.0/24 and 2620:4f:8000::/48; the IPv4 prefix
+   TBA-prefix-v4 and the IPv6 prefix TBA-prefix-v6 support DNAME
    Redirection.
 
    For clarity, an IPv4-only AS112 node need not configure any of the
@@ -445,7 +445,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 23, 2015                  [Page 8]
+Abley & Maton             Expires May 24, 2015                  [Page 8]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -492,8 +492,8 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    Although the queries received by AS112 nodes are definitively
    misdirected, it is important that they be answered in a manner that
-   is accurate and consistent.  For this reason AS112 nodes operate as
-   fully-functional and standards-compliant DNS authoritative servers
+   is accurate and consistent.  For this reason, AS112 nodes operate as
+   fully functional and standards-compliant DNS authoritative servers
    [RFC1034], and hence require appropriate DNS software.
 
 
@@ -501,79 +501,81 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 23, 2015                  [Page 9]
+Abley & Maton             Expires May 24, 2015                  [Page 9]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
    Examples in this document are based on ISC BIND9 [2], but other DNS
-   software exists which is suitable for use in construction of an AS112
+   software exists that is suitable for use in construction of an AS112
    node.
 
    The following is a sample BIND9 "named.conf" file for a dedicated
-   AS112 server.  Note that the name server is configured to act as an
-   authoritative-only server (i.e.  recursion is disabled).  The name
-   server is also configured to listen on the various AS112 anycast name
-   server addresses, as well as its local addresses.
+   AS112 server.  Note that the nameserver is configured to act as an
+   authoritative-only server (i.e., recursion is disabled).  The
+   nameserver is also configured to listen on the various AS112 anycast
+   nameserver addresses, as well as its local addresses.
 
    // named.conf
 
-   // global options
+   // Global options
 
    options {
      listen-on {
        127.0.0.1;         // localhost
 
-     // the following address is node-dependent, and should be set to
-     // something appropriate for the new AS112 node
+     // The following address is node-dependent and should be set to
+     // something appropriate for the new AS112 node.
 
-       203.0.113.1;       // local address (globally-unique, unicast)
+       203.0.113.1;       // local address (globally unique, unicast)
 
-     // the following addresses are used to support Direct Delegation
-     // AS112 service, and are the same for all AS112 nodes
+     // The following addresses are used to support Direct Delegation
+     // AS112 service, and are the same for all AS112 nodes.
 
-       192.175.48.1;      // PRISONER.IANA.ORG (anycast)
-       192.175.48.6;      // BLACKHOLE-1.IANA.ORG (anycast)
-       192.175.48.42;     // BLACKHOLE-2.IANA.ORG (anycast)
+       192.175.48.1;      // prisoner.iana.org (anycast)
+       192.175.48.6;      // blackhole-1.iana.org (anycast)
+       192.175.48.42;     // blackhole-2.iana.org (anycast)
 
-     // the following address is used to support DNAME Redirection
-     // AS112 service, and is the same for all AS112 nodes
+     // The following address is used to support DNAME Redirection
+     // AS112 service, and is the same for all AS112 nodes.
 
-       TBA-address-v4;    // BLACKHOLE.AS112.ARPA (anycast)
+       TBA-address-v4;    // blackhole.as112.arpa (anycast)
      };
 
      listen-on-v6 {
        ::1;               // localhost
 
-     // the following addresses are used to support Direct Delegation
-     // AS112 service, and are the same for all AS112 nodes
+     // The following addresses are used to support Direct Delegation
+     // AS112 service, and are the same for all AS112 nodes.
 
-       2620:4f:8000::1;   // PRISONER.IANA.ORG (anycast)
-       2620:4f:8000::6;   // BLACKHOLE-1.IANA.ORG (anycast)
-       2620:4f:8000::42;  // BLACKHOLE-2.IANA.ORG (anycast)
+       2620:4f:8000::1;   // prisoner.iana.org (anycast)
+       2620:4f:8000::6;   // blackhole-1.iana.org (anycast)
+       2620:4f:8000::42;  // blackhole-2.iana.org (anycast)
 
-     // the following address is used to support DNAME Redirection
-     // AS112 service, and is the same for all AS112 nodes
+     // The following address is used to support DNAME Redirection
+     // AS112 service, and is the same for all AS112 nodes.
 
 
 
-Abley & Maton             Expires May 23, 2015                 [Page 10]
+Abley & Maton             Expires May 24, 2015                 [Page 10]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
-       TBA-address-v6;    // BLACKHOLE.AS112.ARPA (anycast)
+       TBA-address-v6;    // blackhole.as112.arpa (anycast)
      };
 
      directory "/var/named";
      recursion no;        // authoritative-only server
    };
 
-   // log queries,  so that when people call us about unexpected
+   // Log queries, so that when people call us about unexpected
    // answers to queries they didn't realise they had sent, we
    // have something to talk about.  Note that activating this
    // naively has the potential to create high CPU load and consume
-   // enormous amounts of disk space.
+   // enormous amounts of disk space.  This example retains 2 old
+   // versions at a maximum of 500MB each before rotating out the
+   // oldest one.
 
    logging {
      channel "querylog" {
@@ -608,23 +610,23 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    // RFC 6890
 
-   zone "254.169.in-addr.arpa" { type master; file "db.dd-empty"; };
 
 
 
-
-Abley & Maton             Expires May 23, 2015                 [Page 11]
+Abley & Maton             Expires May 24, 2015                 [Page 11]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+   zone "254.169.in-addr.arpa" { type master; file "db.dd-empty"; };
 
    // DNAME Redirection AS112 Service
 
    zone "empty.as112.arpa" { type master; file "db.dr-empty"; };
 
-   // also answer authoritatively for the HOSTNAME.AS112.NET and
-   // HOSTNAME.AS112.ARPA zones, which contain data of operational
-   // relevance
+   // Also answer authoritatively for the HOSTNAME.AS112.NET and
+   // HOSTNAME.AS112.ARPA zones, which contains data of operational
+   // relevance.
 
    zone "hostname.as112.net" {
      type master;
@@ -640,42 +642,42 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    to populate all the IN-ADDR.ARPA zones listed in Section 3.2 that
    support Direct Delegation AS112 service.  Note that the RNAME
    specified in the SOA record corresponds to hostmaster@root-
-   servers.org, a suitable e-mail address for technical queries about
-   these zones.
+   servers.org, a suitable email address for receiving technical queries
+   about these zones.
 
    ; db.dd-empty
    ;
    ; Empty zone for Direct Delegation AS112 service.
    ;
    $TTL    1W
-   @  IN  SOA  PRISONER.IANA.ORG. HOSTMASTER.ROOT-SERVERS.ORG. (
+   @  IN  SOA  prisoner.iana.org. hostmaster.root-servers.org. (
                                   1       ; serial number
                                   1W      ; refresh
                                   1M      ; retry
                                   1W      ; expire
                                   1W )    ; negative caching TTL
    ;
-          NS     BLACKHOLE-1.IANA.ORG.
-          NS     BLACKHOLE-2.IANA.ORG.
+          NS     blackhole-1.iana.org.
+          NS     blackhole-2.iana.org.
    ;
    ; There should be no other resource records included in this zone.
    ;
    ; Records that relate to RFC 1918-numbered resources within the
    ; site hosting this AS112 node should not be hosted on this
-   ; name server.
-
-   The "db.dr-empty" file follows, below.  This is the source data used
-   to populate the EMPTY.AS112.ARPA zone that supports DNAME Redirection
+   ; nameserver.
 
 
 
-Abley & Maton             Expires May 23, 2015                 [Page 12]
+
+Abley & Maton             Expires May 24, 2015                 [Page 12]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
+   The "db.dr-empty" file follows below.  This is the source data used
+   to populate the EMPTY.AS112.ARPA zone that supports DNAME Redirection
    AS112 service.  Note that the RNAME specified in the SOA record
-   corresponds to noc@dns.icann.org, a suitable e-mail address for
+   corresponds to noc@dns.icann.org, a suitable email address for
    technical queries about this zone.
 
    ; db.dr-empty
@@ -683,28 +685,28 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    ; Empty zone for Direct Delegation AS112 service.
    ;
    $TTL    1W
-   @  IN  SOA  BLACKHOLE.AS112.ARPA. NOC.DNS.ICANN.ORG. (
+   @  IN  SOA  blackhole.as112.arpa. noc.dns.icann.org. (
                                   1       ; serial number
                                   1W      ; refresh
                                   1M      ; retry
                                   1W      ; expire
                                   1W )    ; negative caching TTL
    ;
-          NS     BLACKHOLE.AS112.ARPA.
+          NS     blackhole.as112.arpa.
    ;
    ; There should be no other resource records included in this zone.
    ;
    ; Records that relate to RFC 1918-numbered resources within the
    ; site hosting this AS112 node should not be hosted on this
-   ; name server.
+   ; nameserver.
 
    The "db.hostname.as112.net" and "db.hostname.as112.arpa" files
    follow, below.  These zones contain various resource records that
    provide operational data to users for troubleshooting or measurement
-   purposes, and should be edited to suit local circumstances.  Note
-   that the responses to the queries "HOSTNAME.AS112.NET IN TXT" and
-   "HOSTNAME.AS112.ARPA IN TXT" should fit within a 512 octet DNS/UDP
-   datagram: i.e. it should be available over UDP transport without
+   purposes; the data should be edited to suit local circumstances.
+   Note that the responses to the queries "HOSTNAME.AS112.NET IN TXT"
+   and "HOSTNAME.AS112.ARPA IN TXT" should fit within a 512 octet DNS/
+   UDP datagram: i.e., it should be available over UDP transport without
    requiring EDNS0 support by the client.
 
    The optional LOC record [RFC1876] included in each zone apex provides
@@ -723,9 +725,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 13]
+Abley & Maton             Expires May 24, 2015                 [Page 13]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -733,15 +733,15 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    ; db.hostname.as112.net
    ;
    $TTL    1W
-   @       SOA     SERVER.EXAMPLE.NET. ADMIN.EXAMPLE.NET. (
+   @       SOA     server.example.net. admin.example.net. (
                            1               ; serial number
                            1W              ; refresh
                            1M              ; retry
                            1W              ; expire
                            1W )            ; negative caching TTL
    ;
-           NS      BLACKHOLE-1.IANA.ORG.
-           NS      BLACKHOLE-2.IANA.ORG.
+           NS      blackhole-1.iana.org.
+           NS      blackhole-2.iana.org.
    ;
            TXT     "Name of Facility or similar" "City, Country"
            TXT     "See http://www.as112.net/ for more information."
@@ -751,27 +751,27 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    ; db.hostname.as112.arpa
    ;
    $TTL    1W
-   @       SOA     SERVER.EXAMPLE.NET. ADMIN.EXAMPLE.NET. (
+   @       SOA     server.example.net. admin.example.net. (
                            1               ; serial number
                            1W              ; refresh
                            1M              ; retry
                            1W              ; expire
                            1W )            ; negative caching TTL
    ;
-           NS      BLACKHOLE.AS112.ARPA.
+           NS      blackhole.as112.arpa.
    ;
            TXT     "Name of Facility or similar" "City, Country"
            TXT     "See http://www.as112.net/ for more information."
    ;
            LOC     45 25 0.000 N 75 42 0.000 W 80.00m 1m 10000m 10m
 
-4.6.  Testing a Newly-Installed Node
+4.6.  Testing a Newly Installed Node
 
    The BIND9 tool "dig" can be used to retrieve the TXT resource records
    associated with the names "HOSTNAME.AS112.NET" and
-   "HOSTNAME.AS112.ARPA", directed at one of the AS112 anycast name
-   server addresses.  Continuing the example from above, the response
-   received should indicate the identity of the AS112 node that
+   "HOSTNAME.AS112.ARPA", directed at one of the AS112 anycast
+   nameserver addresses.  Continuing the example from above, the
+   response received should indicate the identity of the AS112 node that
    responded to the query.  See Section 4.5 for more details about the
    resource records associated with "HOSTNAME.AS112.NET".
 
@@ -781,26 +781,26 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 23, 2015                 [Page 14]
+Abley & Maton             Expires May 24, 2015                 [Page 14]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
-       % dig @PRISONER.IANA.ORG HOSTNAME.AS112.NET txt +short +norec
+       % dig @prisoner.iana.org hostname.as112.net txt +short +norec
        "Name of Facility or similar" "City, Country"
        "See http://www.as112.net/ for more information."
        %
 
    If the response received indicates a different node is being used,
    then there is probably a routing problem to solve.  If there is no
-   response received at all, there might be host or name server problem.
-   Judicious use of tools such as traceroute, and consultation of BGP
-   looking glasses might be useful in troubleshooting.
+   response received at all, there might be a host or nameserver
+   problem.  Judicious use of tools such as traceroute and consultation
+   of BGP looking glasses might be useful in troubleshooting.
 
    Note that an appropriate set of tests for a new server will include
    queries sent from many different places within the expected service
    area of the node, using both UDP and TCP transport, and exercising
-   all three AS112 anycast name server addresses.
+   all three AS112 anycast nameserver addresses.
 
 5.  Operations
 
@@ -814,20 +814,20 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 5.2.  Downtime
 
-   An AS112 node that needs to go off-line (e.g. for planned maintenance
-   or as part of the diagnosis of some problem) should stop advertising
-   the AS112 service prefixes to its BGP peers.  This can be done by
-   shutting down the routing software on the node altogether or by
-   causing the routing system to withdraw the route.
+   An AS112 node that needs to go off-line (e.g., for planned
+   maintenance or as part of the diagnosis of some problem) should stop
+   advertising the AS112 service prefixes to its BGP peers.  This can be
+   done by shutting down the routing software on the node altogether or
+   by causing the routing system to withdraw the route.
 
-   Withdrawal of the service prefixes is important in order to avoid
+   Withdrawing the service prefixes is important in order to avoid
    blackholing query traffic in the event that the DNS software on the
    node is not functioning normally.
 
 5.3.  Statistics and Measurement
 
    Use of the AS112 node should be measured in order to track long-term
-   trends, identify anomalous conditions, and to ensure that the
+   trends, identify anomalous conditions, and ensure that the
    configuration of the AS112 node is sufficient to handle the query
    load.
 
@@ -837,7 +837,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 23, 2015                 [Page 15]
+Abley & Maton             Expires May 24, 2015                 [Page 15]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -848,6 +848,11 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    o  DSC [5]
 
+   Operators of AS112 nodes should also consider participating in
+   collection events as part of a larger, co-ordinated effort to gather
+   important baselines.  One example of such an effort is Day-in-the-
+   Life [6] coordinated by the DNS-OARC [7].
+
 6.  Communications
 
    It is good operational practice to notify the community of users that
@@ -857,22 +862,25 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    For nodes that are intended to be globally reachable, coordination
    with other AS112 operators is especially recommended.  The mailing
-   list [6] is operated for this purpose.
+   list [8] is operated for this purpose.
 
-   Information pertinent to AS112 operations is maintained at [7].
+   Information pertinent to AS112 operations is maintained at [9].
 
    Information about an AS112 node should also be published within the
    DNS, within the "HOSTNAME.AS112.NET" and "HOSTNAME.AS112.ARPA" zones.
    See Section 4.5 for more details.
 
+   AS112 operators should also be aware of the measures described in
+   [RFC6305] and direct site administrators appropriately.
+
 7.  On the Future of AS112 Nodes
 
-   It is recommended practice for the operators of recursive name
-   servers to answer queries for zones served by AS112 nodes locally,
-   such that queries never have an opportunity to reach AS112 servers
-   [RFC6303].  Operational experience with AS112 nodes does not
-   currently indicate an observable trend towards compliance with those
-   recommendations, however.
+   It is recommended practice for the operators of recursive nameservers
+   to answer queries for zones served by AS112 nodes locally, such that
+   queries never have an opportunity to reach AS112 servers [RFC6303].
+   Operational experience with AS112 nodes does not currently indicate
+   an observable trend towards compliance with those recommendations,
+   however.
 
    It is expected that some DNS software vendors will include default
    configuration that will implement measures such as those described in
@@ -882,6 +890,14 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    to zero, and consequently that AS112 nodes will continue to provide a
    useful service for the foreseeable future.
 
+
+
+
+Abley & Maton             Expires May 24, 2015                 [Page 16]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
    The use of DNAME Redirection to provide AS112 service is new, and
    hence is informed by minimal operational experience.  The use of
    DNAME means that queries for many source zones could be redirected to
@@ -889,15 +905,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    If the DNAME Redirection approach is successful, and in the absence
    of any operational concerns, the community might well recommend the
-
-
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 16]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
-
    retirement of the original Direct Delegation AS112 service.  This
    document makes no such recommendation, however.
 
@@ -905,7 +912,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 8.1.  General
 
-   The name servers associated with Direct Delegation AS112 service are
+   The nameservers associated with Direct Delegation AS112 service are
    all named under the domain IANA.ORG (see Section 3.3).  However, the
    anycast infrastructure itself is operated by a loosely-coordinated,
    diverse mix of organisations across the Internet, and is not an IANA
@@ -930,7 +937,22 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 8.2.1.  IPv6 Transport for Direct Delegation AS112 Servers
 
    The IANA is directed to add the following AAAA resource records for
-   the three Direct Delegation AS112 name servers named under IANA.ORG:
+   the three Direct Delegation AS112 nameservers named under IANA.ORG:
+
+
+
+
+
+
+
+
+
+
+
+Abley & Maton             Expires May 24, 2015                 [Page 17]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
 
                 +----------------------+------------------+
                 | Owner Name           | AAAA RDATA       |
@@ -941,18 +963,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
                 |                      |                  |
                 | BLACKHOLE-2.IANA.ORG | 2620:4f:8000::42 |
                 +----------------------+------------------+
-
-
-
-
-
-
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 17]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
 
 8.2.2.  Registration in the Special-Purpose AS Numbers Registry
 
@@ -989,6 +999,17 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    Reserved-by-Protocol:  False
 
+
+
+
+
+
+
+Abley & Maton             Expires May 24, 2015                 [Page 18]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
 8.2.4.  Registration in the IANA IPv6 Special-Purpose Address Registry
 
    The IANA is directed to add 2620:4f:8000::/48 to the "IANA IPv6
@@ -1001,14 +1022,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    RFC:  [THIS DOCUMENT]
 
    Allocation Date:  2011-05-31
-
-
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 18]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
 
    Termination Date:  N/A
 
@@ -1028,9 +1041,11 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    relating to private-use addresses should be answered locally within a
    site.  Hosts that send queries to AS112 servers may well leak
    information relating to private infrastructure to the public network,
-   and this could present a security risk.  This risk is orthogonal to
-   the presence or absence of authoritative servers for these zones in
-   the public DNS infrastructure, however.
+   and this could present a security risk.  Additionally, AS112
+   operators may log this information making it further subject to
+   whatever security and privacy risks that might entail.  These risks
+   are orthogonal to the presence or absence of authoritative servers
+   for these zones in the public DNS infrastructure, however.
 
    Queries that are answered by AS112 servers are usually unintentional;
    it follows that the responses from AS112 servers are usually
@@ -1039,12 +1054,21 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    should be prepared to be contacted by operators of remote
    infrastructure who believe their security has been violated.  Advice
    to those who mistakenly believe that responses from AS112 nodes
-   constitutes an attack on their infrastructure can be found in
+   constitute an attack on their infrastructure can be found in
    [RFC6305].
+
+
+
+
+
+Abley & Maton             Expires May 24, 2015                 [Page 19]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
 
    The deployment of AS112 nodes is very loosely coordinated compared to
    other services distributed using anycast.  The malicious compromise
-   of an AS112 node and subversion of the data served by the node is
+   of an AS112 node and subversion of the data served by the node are
    hence more difficult to detect due to the lack of central management.
    Since it is conceivable that changing the responses to queries
    received by AS112 nodes might influence the behaviour of the hosts
@@ -1053,21 +1077,12 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    Operators of AS112 should take appropriate measures to ensure that
    AS112 nodes are appropriately protected from compromise, such as
-   would normally be employed for production name server or network
-   infrastructure.  The guidance provided for root name servers in
+   would normally be employed for production nameserver or network
+   infrastructure.  The guidance provided for root nameservers in
    [RFC2870] may be instructive.
 
-
-
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 19]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
-
    The zones hosted by AS112 servers are not signed with DNSSEC
-   [RFC4033].  Given the distributed and loosely-coordinated structure
+   [RFC4033].  Given the distributed and loosely coordinated structure
    of the AS112 service, the zones concerned could only be signed if the
    private key material used was effectively public, obviating any
    security benefit resulting from the use of those keys.
@@ -1080,8 +1095,8 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    The authors wish to acknowledge the assistance of Bill Manning, John
    Brown, Marco D'Itri, Daniele Arena, Stephane Bortzmeyer, Frank
    Habicht, Chris Thompson, Peter Losher, Peter Koch, Alfred Hoenes, S.
-   Moonesamy and Mehmet Akcin in the preparation of [RFC6304], which
-   this document supercedes.
+   Moonesamy, Mehmet Akcin and Aleksi Suhonen in the preparation of
+   [RFC6304], which this document supercedes.
 
 11.  References
 
@@ -1099,6 +1114,14 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
               E. Lear, "Address Allocation for Private Internets", BCP
               5, RFC 1918, February 1996.
 
+
+
+
+Abley & Maton             Expires May 24, 2015                 [Page 20]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
    [RFC2870]  Bush, R., Karrenberg, D., Kosters, M., and R. Plzak, "Root
               Name Server Operational Requirements", BCP 40, RFC 2870,
               June 2000.
@@ -1112,15 +1135,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    [RFC4786]  Abley, J. and K. Lindqvist, "Operation of Anycast
               Services", BCP 126, RFC 4786, December 2006.
-
-
-
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 20]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
 
 11.2.  Informative References
 
@@ -1156,27 +1170,27 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    [2] http://www.isc.org/software/BIND/
 
+
+
+
+Abley & Maton             Expires May 24, 2015                 [Page 21]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
    [3] http://www.linux.it/~md/software/
 
    [4] http://dns.measurement-factory.com/tools/dnstop/
 
    [5] http://dns.measurement-factory.com/tools/dsc/
 
-   [6] mailto:as112-ops@lists.dns-oarc.net
+   [6] https://www.dns-oarc.net/oarc/data/ditl/
 
-   [7] http://www.as112.net/
+   [7] https://www.dns-oarc.net/
 
+   [8] mailto:as112-ops@lists.dns-oarc.net
 
-
-
-
-
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 21]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
+   [9] http://www.as112.net/
 
 Appendix A.  History
 
@@ -1185,7 +1199,7 @@ Appendix A.  History
    ADDR.ARPA zone was served by root servers.
 
    The idea of off-loading IN-ADDR.ARPA queries relating to [RFC1918]
-   addresses from the root name servers was first proposed by Bill
+   addresses from the root nameservers was first proposed by Bill
    Manning and John Brown.
 
    The use of anycast for distributing authoritative DNS service for
@@ -1206,11 +1220,19 @@ Appendix A.  History
    [RFC6304], the precursor to this document, was published in July
    2011.
 
-   The use of anycast name servers in the AS112 project contributed to
+   The use of anycast nameservers in the AS112 project contributed to
    the operational experience of anycast DNS services, and it can be
    seen as a precursor to the anycast distribution of other
    authoritative DNS servers in subsequent years (e.g., various root
    servers).
+
+
+
+
+Abley & Maton             Expires May 24, 2015                 [Page 22]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
 
 Appendix B.  Revision History and Venue
 
@@ -1224,15 +1246,6 @@ B.1.  draft-jabley-dnsop-rfc6304bis-00
 
    Initial revision of [RFC6304] intended to provide guidance consistent
    with [I-D.ietf-dnsop-as112-dname].
-
-
-
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 22]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
 
 B.2.  draft-ietf-dnsop-rfc6304bis-00
 
@@ -1270,6 +1283,37 @@ B.6.  draft-ietf-dnsop-rfc6304bis-04
 
    Add shout-out to Pearl and Leo.
 
+
+
+Abley & Maton             Expires May 24, 2015                 [Page 23]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
+B.7.  draft-ietf-dnsop-rfc6304bis-05
+
+   As per IESG review and a replay of the same comment from Pete Resnick
+   made of the review of the draft of RFC 6304, switch from
+   Informational to Best Current Practice.
+
+   Expand the first paragraph in the Security Considerations section to
+   include a word on the logging of such leaked information.
+
+   Add mention about further measurement and analysis contribution
+   through the DNS-OARC.
+
+   Add another reference to RFC 6305 in Communication section.
+
+   Amend the abstract slightly to shorten it and re-state second-last
+   paragraph as if RFC 6304 neever existed.
+
+   Add some more missing changes suggests at RFC 6304 AUTH48 phase.
+
+   Re-sync some more language with RFC 6304 after another edit round
+   post-AUTH48.
+
+   Add shout-out to Aleksi Suhonen.
+
 Authors' Addresses
 
    Joe Abley
@@ -1280,14 +1324,6 @@ Authors' Addresses
 
    Phone: +1 519 670 9327
    Email: jabley@dyn.com
-
-
-
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 23]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
    William F. Maton Sotomayor
@@ -1305,40 +1341,4 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Abley & Maton             Expires May 23, 2015                 [Page 24]
+Abley & Maton             Expires May 24, 2015                 [Page 24]
