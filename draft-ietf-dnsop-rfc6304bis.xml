@@ -175,16 +175,16 @@
     <section title="AS112 DNS Service">
       <section title="Approach">
         <section title="Direct Delegation">
-          <t><xref target="RFC6304"/> describes an approach whereby
+          <t>The AS112 Project currently uses an approach whereby
             zones whose traffic should be directed towards an AS112
             sink should be directly delegated to AS112 nameservers.
             Correspondingly, each AS112 node is manually configured
             to answer appropriately for those zones.</t>
 
-	  <t>The guidance in this document preserves this capability
+	  <t>The guidance in this document describes this capability
 	    for the zones that were originally delegated in this
 	    fashion. AS112 nodes that were implemented in accordance
-            with the guidance in <xref target="RFC6304"/> will
+            with the guidance found here will
             continue to provide service for those zones.</t>
 	</section>
 
@@ -1016,7 +1016,7 @@ $TTL    1W
       <t>This document benefited from review and suggestions from
         Leo Vegoda and Pearl Liang.</t>
 
-      <t>The authors  wish to acknowledge the assistance of Bill
+      <t>The authors wish to acknowledge the assistance of Bill
         Manning, John Brown, Marco D'Itri, Daniele Arena, Stephane
         Bortzmeyer, Frank Habicht, Chris Thompson, Peter Losher,
         Peter Koch, Alfred Hoenes, S. Moonesamy, Mehmet Akcin and
@@ -1067,7 +1067,7 @@ $TTL    1W
       &rfc7249;
     </references>
 
-    <section title="History" anchor="history">
+    <section title="A Brief History of AS112" anchor="history">
       <t>Widespread use of the private address blocks listed in
 	<xref target="RFC1918"/> followed that document's publication
 	in 1996.  At that time the IN-ADDR.ARPA zone was served by
@@ -1114,8 +1114,14 @@ $TTL    1W
              to have additional zones delegated for sinking or removed
              using the DNAME resource record.</t>
 
-           <t>Requisite change to the advice regarding the configuration
+           <t>Requisite changes to the advice regarding the configuration
              of current and future AS112 nodes.</t>
+
+           <t>Further clarification about the leakage of information in
+             the Security Considerations section.</t>
+
+           <t>A direction to the IANA to register the AS112 Project's
+             prefixes in the IANA Special-Purpose Address Registries.</t>
          </list>
        </t>
     </section>
@@ -1174,9 +1180,15 @@ $TTL    1W
       </section>
 
       <section title="draft-ietf-dnsop-rfc6304bis-05">
-        <t>As per IESG review and a replay of the same comment from Pete
-          Resnick made of the review of the draft of RFC 6304, switch from
+        <t>As per IESG review and a replay of the same comment made by Pete
+          Resnick of the review of the draft of RFC 6304, switch from
           Informational to Best Current Practice.</t>
+
+        <t>Amend the abstract slightly to shorten it and re-state 
+          second-last paragraph as if RFC 6304 neever existed.</t>
+
+        <t>Amend AS112 DNS Service section slightly to remove references
+          to RFC 6304 and make this a little more standalone.</t>
 
         <t>Expand the first paragraph in the Security Considerations
           section to include a word on the logging of such leaked 
@@ -1187,14 +1199,11 @@ $TTL    1W
 
         <t>Add another reference to RFC 6305 in Communication section.</t>
 
-        <t>Amend the abstract slightly to shorten it and re-state 
-          second-last paragraph as if RFC 6304 neever existed.</t>
-
-        <t>Add some more missing changes suggests at RFC 6304 AUTH48
+        <t>Add some more missing changes suggested during RFC 6304 AUTH48
           phase.</t>
 
         <t>Re-sync some more language with RFC 6304 after another edit
-          round post-AUTH48.</t>
+          round post-AUTH48 that was missing from the current draft.</t>
 
         <t>Expand the TXT record return to include info about the unique
           IP of the AS112 node.</t>

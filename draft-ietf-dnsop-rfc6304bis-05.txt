@@ -127,7 +127,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  20
      11.2.  Informative References . . . . . . . . . . . . . . . . .  21
      11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  21
-   Appendix A.  History  . . . . . . . . . . . . . . . . . . . . . .  22
+   Appendix A.  A Brief History of AS112 . . . . . . . . . . . . . .  22
    Appendix B.  Changes Since RFC 6304 . . . . . . . . . . . . . . .  23
    Appendix C.  Revision History and Venue . . . . . . . . . . . . .  23
      C.1.  draft-jabley-dnsop-rfc6304bis-00  . . . . . . . . . . . .  23
@@ -206,14 +206,14 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 3.1.1.  Direct Delegation
 
-   [RFC6304] describes an approach whereby zones whose traffic should be
-   directed towards an AS112 sink should be directly delegated to AS112
-   nameservers.  Correspondingly, each AS112 node is manually configured
-   to answer appropriately for those zones.
+   The AS112 Project currently uses an approach whereby zones whose
+   traffic should be directed towards an AS112 sink should be directly
+   delegated to AS112 nameservers.  Correspondingly, each AS112 node is
+   manually configured to answer appropriately for those zones.
 
-   The guidance in this document preserves this capability for the zones
+   The guidance in this document describes this capability for the zones
    that were originally delegated in this fashion.  AS112 nodes that
-   were implemented in accordance with the guidance in [RFC6304] will
+   were implemented in accordance with the guidance found here will
    continue to provide service for those zones.
 
 
@@ -1192,7 +1192,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    [9] http://www.as112.net/
 
-Appendix A.  History
+Appendix A.  A Brief History of AS112
 
    Widespread use of the private address blocks listed in [RFC1918]
    followed that document's publication in 1996.  At that time the IN-
@@ -1245,8 +1245,14 @@ Appendix B.  Changes Since RFC 6304
       additional zones delegated for sinking or removed using the DNAME
       resource record.
 
-   o  Requisite change to the advice regarding the configuration of
+   o  Requisite changes to the advice regarding the configuration of
       current and future AS112 nodes.
+
+   o  Further clarification about the leakage of information in the
+      Security Considerations section.
+
+   o  A direction to the IANA to register the AS112 Project's prefixes
+      in the IANA Special-Purpose Address Registries.
 
 Appendix C.  Revision History and Venue
 
@@ -1275,12 +1281,6 @@ C.4.  draft-ietf-dnsop-rfc6304bis-02
    Add IPv6 details for Direct Delegation AS112 service, including IANA
    considerations to add AAAA RRs to PRISONER.IANA.ORG and friends.
 
-   Add IANA considerations that will add AS112 to the "Special-Purpose
-   AS Numbers" registry, as created in [RFC7249].
-
-   Merge in some AUTH48 changes from RFC6304 that had been overlooked.
-
-
 
 
 
@@ -1289,6 +1289,11 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 23]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+   Add IANA considerations that will add AS112 to the "Special-Purpose
+   AS Numbers" registry, as created in [RFC7249].
+
+   Merge in some AUTH48 changes from RFC6304 that had been overlooked.
 
 C.5.  draft-ietf-dnsop-rfc6304bis-03
 
@@ -1309,9 +1314,15 @@ C.6.  draft-ietf-dnsop-rfc6304bis-04
 
 C.7.  draft-ietf-dnsop-rfc6304bis-05
 
-   As per IESG review and a replay of the same comment from Pete Resnick
-   made of the review of the draft of RFC 6304, switch from
+   As per IESG review and a replay of the same comment made by Pete
+   Resnick of the review of the draft of RFC 6304, switch from
    Informational to Best Current Practice.
+
+   Amend the abstract slightly to shorten it and re-state second-last
+   paragraph as if RFC 6304 neever existed.
+
+   Amend AS112 DNS Service section slightly to remove references to RFC
+   6304 and make this a little more standalone.
 
    Expand the first paragraph in the Security Considerations section to
    include a word on the logging of such leaked information.
@@ -1321,21 +1332,10 @@ C.7.  draft-ietf-dnsop-rfc6304bis-05
 
    Add another reference to RFC 6305 in Communication section.
 
-   Amend the abstract slightly to shorten it and re-state second-last
-   paragraph as if RFC 6304 neever existed.
-
-   Add some more missing changes suggests at RFC 6304 AUTH48 phase.
+   Add some more missing changes suggested during RFC 6304 AUTH48 phase.
 
    Re-sync some more language with RFC 6304 after another edit round
-   post-AUTH48.
-
-   Expand the TXT record return to include info about the unique IP of
-   the AS112 node.
-
-   Add shout-out to Aleksi Suhonen.
-
-
-
+   post-AUTH48 that was missing from the current draft.
 
 
 
@@ -1345,6 +1345,11 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 24]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+   Expand the TXT record return to include info about the unique IP of
+   the AS112 node.
+
+   Add shout-out to Aleksi Suhonen.
 
 Authors' Addresses
 
@@ -1366,11 +1371,6 @@ Authors' Addresses
    Canada
 
    Email: wmaton@ottix.net
-
-
-
-
-
 
 
 
