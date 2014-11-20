@@ -487,6 +487,13 @@ interface eth0
 	  to listen on the various AS112 anycast nameserver addresses,
 	  as well as its local addresses.</t>
 
+        <t>A basic logging example is included in the sample as well.
+          AS112 operators may exercise discretion at the amount of logging
+          detail they desire or the type of logging they may use in
+          the maintenance of their node.  The detail of information can
+          then be used to single-out bad implementors, badly
+          managed nameservers or for simple measurement analysis.</t>
+
         <figure>
           <artwork>
 // named.conf
@@ -1114,7 +1121,7 @@ $TTL    1W
              to have additional zones delegated for sinking or removed
              using the DNAME resource record.</t>
 
-           <t>Requisite changes to the advice regarding the configuration
+           <t>Requisite changes to the guidance regarding the configuration
              of current and future AS112 nodes.</t>
 
            <t>Further clarification about the leakage of information in
@@ -1189,6 +1196,8 @@ $TTL    1W
 
         <t>Amend AS112 DNS Service section slightly to remove references
           to RFC 6304 and make this a little more standalone.</t>
+
+        <t>Add a paragraph about logging.</t>
 
         <t>Expand the first paragraph in the Security Considerations
           section to include a word on the logging of such leaked 

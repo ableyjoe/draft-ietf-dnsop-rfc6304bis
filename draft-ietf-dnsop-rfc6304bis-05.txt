@@ -96,16 +96,16 @@ Table of Contents
      4.3.  Operating System and Host Considerations  . . . . . . . .   7
      4.4.  Routing Software  . . . . . . . . . . . . . . . . . . . .   7
      4.5.  DNS Software  . . . . . . . . . . . . . . . . . . . . . .   9
-     4.6.  Testing a Newly Installed Node  . . . . . . . . . . . . .  14
+     4.6.  Testing a Newly Installed Node  . . . . . . . . . . . . .  15
    5.  Operations  . . . . . . . . . . . . . . . . . . . . . . . . .  15
      5.1.  Monitoring  . . . . . . . . . . . . . . . . . . . . . . .  15
      5.2.  Downtime  . . . . . . . . . . . . . . . . . . . . . . . .  15
-     5.3.  Statistics and Measurement  . . . . . . . . . . . . . . .  15
+     5.3.  Statistics and Measurement  . . . . . . . . . . . . . . .  16
    6.  Communications  . . . . . . . . . . . . . . . . . . . . . . .  16
    7.  On the Future of AS112 Nodes  . . . . . . . . . . . . . . . .  16
    8.  IANA Considerations . . . . . . . . . . . . . . . . . . . . .  17
      8.1.  General . . . . . . . . . . . . . . . . . . . . . . . . .  17
-     8.2.  IANA Actions  . . . . . . . . . . . . . . . . . . . . . .  17
+     8.2.  IANA Actions  . . . . . . . . . . . . . . . . . . . . . .  18
 
 
 
@@ -114,7 +114,7 @@ Abley & Sotomayor         Expires May 24, 2015                  [Page 2]
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
-       8.2.1.  IPv6 Transport for Direct Delegation AS112 Servers  .  17
+       8.2.1.  IPv6 Transport for Direct Delegation AS112 Servers  .  18
        8.2.2.  Registration in the Special-Purpose AS      Numbers
                Registry  . . . . . . . . . . . . . . . . . . . . . .  18
        8.2.3.  Registration in the IANA IPv4 Special-Purpose
@@ -126,14 +126,14 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    11. References  . . . . . . . . . . . . . . . . . . . . . . . . .  20
      11.1.  Normative References . . . . . . . . . . . . . . . . . .  20
      11.2.  Informative References . . . . . . . . . . . . . . . . .  21
-     11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  21
+     11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  22
    Appendix A.  A Brief History of AS112 . . . . . . . . . . . . . .  22
    Appendix B.  Changes Since RFC 6304 . . . . . . . . . . . . . . .  23
    Appendix C.  Revision History and Venue . . . . . . . . . . . . .  23
      C.1.  draft-jabley-dnsop-rfc6304bis-00  . . . . . . . . . . . .  23
      C.2.  draft-ietf-dnsop-rfc6304bis-00  . . . . . . . . . . . . .  23
      C.3.  draft-ietf-dnsop-rfc6304bis-01  . . . . . . . . . . . . .  23
-     C.4.  draft-ietf-dnsop-rfc6304bis-02  . . . . . . . . . . . . .  23
+     C.4.  draft-ietf-dnsop-rfc6304bis-02  . . . . . . . . . . . . .  24
      C.5.  draft-ietf-dnsop-rfc6304bis-03  . . . . . . . . . . . . .  24
      C.6.  draft-ietf-dnsop-rfc6304bis-04  . . . . . . . . . . . . .  24
      C.7.  draft-ietf-dnsop-rfc6304bis-05  . . . . . . . . . . . . .  24
@@ -516,6 +516,13 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    nameserver is also configured to listen on the various AS112 anycast
    nameserver addresses, as well as its local addresses.
 
+   A basic logging example is included in the sample as well.  AS112
+   operators may exercise discretion at the amount of logging detail
+   they desire or the type of logging they may use in the maintenance of
+   their node.  The detail of information can then be used to single-out
+   bad implementors, badly managed nameservers or for simple measurement
+   analysis.
+
    // named.conf
 
    // Global options
@@ -548,19 +555,19 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
      // The following addresses are used to support Direct Delegation
      // AS112 service, and are the same for all AS112 nodes.
 
-       2620:4f:8000::1;   // prisoner.iana.org (anycast)
-       2620:4f:8000::6;   // blackhole-1.iana.org (anycast)
-       2620:4f:8000::42;  // blackhole-2.iana.org (anycast)
-
-     // The following address is used to support DNAME Redirection
-     // AS112 service, and is the same for all AS112 nodes.
-
 
 
 Abley & Sotomayor         Expires May 24, 2015                 [Page 10]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+       2620:4f:8000::1;   // prisoner.iana.org (anycast)
+       2620:4f:8000::6;   // blackhole-1.iana.org (anycast)
+       2620:4f:8000::42;  // blackhole-2.iana.org (anycast)
+
+     // The following address is used to support DNAME Redirection
+     // AS112 service, and is the same for all AS112 nodes.
 
        TBA-address-v6;    // blackhole.as112.arpa (anycast)
      };
@@ -603,13 +610,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    zone "26.172.in-addr.arpa" { type master; file "db.dd-empty"; };
    zone "27.172.in-addr.arpa" { type master; file "db.dd-empty"; };
    zone "28.172.in-addr.arpa" { type master; file "db.dd-empty"; };
-   zone "29.172.in-addr.arpa" { type master; file "db.dd-empty"; };
-   zone "30.172.in-addr.arpa" { type master; file "db.dd-empty"; };
-   zone "31.172.in-addr.arpa" { type master; file "db.dd-empty"; };
-   zone "168.192.in-addr.arpa" { type master; file "db.dd-empty"; };
-
-   // RFC 6890
-
 
 
 
@@ -617,6 +617,13 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 11]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+   zone "29.172.in-addr.arpa" { type master; file "db.dd-empty"; };
+   zone "30.172.in-addr.arpa" { type master; file "db.dd-empty"; };
+   zone "31.172.in-addr.arpa" { type master; file "db.dd-empty"; };
+   zone "168.192.in-addr.arpa" { type master; file "db.dd-empty"; };
+
+   // RFC 6890
 
    zone "254.169.in-addr.arpa" { type master; file "db.dd-empty"; };
 
@@ -645,6 +652,28 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    servers.org, a suitable email address for receiving technical queries
    about these zones.
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Abley & Sotomayor         Expires May 24, 2015                 [Page 12]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
    ; db.dd-empty
    ;
    ; Empty zone for Direct Delegation AS112 service.
@@ -665,14 +694,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    ; Records that relate to RFC 1918-numbered resources within the
    ; site hosting this AS112 node should not be hosted on this
    ; nameserver.
-
-
-
-
-Abley & Sotomayor         Expires May 24, 2015                 [Page 12]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
 
    The "db.dr-empty" file follows below.  This is the source data used
    to populate the EMPTY.AS112.ARPA zone that supports DNAME Redirection
@@ -700,6 +721,15 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    ; site hosting this AS112 node should not be hosted on this
    ; nameserver.
 
+
+
+
+
+Abley & Sotomayor         Expires May 24, 2015                 [Page 13]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
    The "db.hostname.as112.net" and "db.hostname.as112.arpa" files
    follow, below.  These zones contain various resource records that
    provide operational data to users for troubleshooting or measurement
@@ -711,24 +741,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    The optional LOC record [RFC1876] included in each zone apex provides
    information about the geospatial location of the node.
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-Abley & Sotomayor         Expires May 24, 2015                 [Page 13]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
 
    ; db.hostname.as112.net
    ;
@@ -766,6 +778,14 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    ;
            LOC     45 25 0.000 N 75 42 0.000 W 80.00m 1m 10000m 10m
 
+
+
+
+Abley & Sotomayor         Expires May 24, 2015                 [Page 14]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
 4.6.  Testing a Newly Installed Node
 
    The BIND9 tool "dig" can be used to retrieve the TXT resource records
@@ -775,16 +795,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    response received should indicate the identity of the AS112 node that
    responded to the query.  See Section 4.5 for more details about the
    resource records associated with "HOSTNAME.AS112.NET".
-
-
-
-
-
-
-Abley & Sotomayor         Expires May 24, 2015                 [Page 14]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
 
        % dig @prisoner.iana.org hostname.as112.net txt +short +norec
        "Name of Facility or similar" "City, Country"
@@ -824,6 +834,14 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    blackholing query traffic in the event that the DNS software on the
    node is not functioning normally.
 
+
+
+
+Abley & Sotomayor         Expires May 24, 2015                 [Page 15]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
 5.3.  Statistics and Measurement
 
    Use of the AS112 node should be measured in order to track long-term
@@ -833,14 +851,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    Examples of free monitoring tools that might be useful to operators
    of AS112 nodes include:
-
-
-
-
-Abley & Sotomayor         Expires May 24, 2015                 [Page 15]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
 
    o  bindgraph [3]
 
@@ -879,6 +889,15 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    to answer queries for zones served by AS112 nodes locally, such that
    queries never have an opportunity to reach AS112 servers [RFC6303].
    Operational experience with AS112 nodes does not currently indicate
+
+
+
+
+Abley & Sotomayor         Expires May 24, 2015                 [Page 16]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
    an observable trend towards compliance with those recommendations,
    however.
 
@@ -889,14 +908,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    however, it is safe to assume that the query load will not decrease
    to zero, and consequently that AS112 nodes will continue to provide a
    useful service for the foreseeable future.
-
-
-
-
-Abley & Sotomayor         Expires May 24, 2015                 [Page 16]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
 
    The use of DNAME Redirection to provide AS112 service is new, and
    hence is informed by minimal operational experience.  The use of
@@ -932,17 +943,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    to those owner names in Section 8.2.1, to allow the servers to
    receive queries and generate responses over IPv6 transport.
 
-8.2.  IANA Actions
-
-8.2.1.  IPv6 Transport for Direct Delegation AS112 Servers
-
-   The IANA is directed to add the following AAAA resource records for
-   the three Direct Delegation AS112 nameservers named under IANA.ORG:
-
-
-
-
-
 
 
 
@@ -953,6 +953,13 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 17]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+8.2.  IANA Actions
+
+8.2.1.  IPv6 Transport for Direct Delegation AS112 Servers
+
+   The IANA is directed to add the following AAAA resource records for
+   the three Direct Delegation AS112 nameservers named under IANA.ORG:
 
                 +----------------------+------------------+
                 | Owner Name           | AAAA RDATA       |
@@ -995,13 +1002,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
    Forwardable:  True
 
-   Global:  True
-
-   Reserved-by-Protocol:  False
-
-
-
-
 
 
 
@@ -1009,6 +1009,10 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 18]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+   Global:  True
+
+   Reserved-by-Protocol:  False
 
 8.2.4.  Registration in the IANA IPv6 Special-Purpose Address Registry
 
@@ -1054,10 +1058,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    should be prepared to be contacted by operators of remote
    infrastructure who believe their security has been violated.  Advice
    to those who mistakenly believe that responses from AS112 nodes
-   constitute an attack on their infrastructure can be found in
-   [RFC6305].
-
-
 
 
 
@@ -1065,6 +1065,9 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 19]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+   constitute an attack on their infrastructure can be found in
+   [RFC6305].
 
    The deployment of AS112 nodes is very loosely coordinated compared to
    other services distributed using anycast.  The malicious compromise
@@ -1110,9 +1113,6 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    [RFC1034]  Mockapetris, P., "Domain names - concepts and facilities",
               STD 13, RFC 1034, November 1987.
 
-   [RFC1918]  Rekhter, Y., Moskowitz, R., Karrenberg, D., Groot, G., and
-              E. Lear, "Address Allocation for Private Internets", BCP
-              5, RFC 1918, February 1996.
 
 
 
@@ -1121,6 +1121,10 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 20]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+   [RFC1918]  Rekhter, Y., Moskowitz, R., Karrenberg, D., Groot, G., and
+              E. Lear, "Address Allocation for Private Internets", BCP
+              5, RFC 1918, February 1996.
 
    [RFC2870]  Bush, R., Karrenberg, D., Kosters, M., and R. Plzak, "Root
               Name Server Operational Requirements", BCP 40, RFC 2870,
@@ -1164,11 +1168,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    [RFC7249]  Housley, R., "Internet Numbers Registries", RFC 7249, May
               2014.
 
-11.3.  URIs
 
-   [1] http://www.quagga.net/
-
-   [2] http://www.isc.org/software/BIND/
 
 
 
@@ -1177,6 +1177,12 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 21]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+11.3.  URIs
+
+   [1] http://www.quagga.net/
+
+   [2] http://www.isc.org/software/BIND/
 
    [3] http://www.linux.it/~md/software/
 
@@ -1220,12 +1226,6 @@ Appendix A.  A Brief History of AS112
    [RFC6304], the precursor to this document, was published in July
    2011.
 
-   The use of anycast nameservers in the AS112 project contributed to
-   the operational experience of anycast DNS services, and it can be
-   seen as a precursor to the anycast distribution of other
-   authoritative DNS servers in subsequent years (e.g., various root
-   servers).
-
 
 
 
@@ -1233,6 +1233,12 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 22]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+   The use of anycast nameservers in the AS112 project contributed to
+   the operational experience of anycast DNS services, and it can be
+   seen as a precursor to the anycast distribution of other
+   authoritative DNS servers in subsequent years (e.g., various root
+   servers).
 
 Appendix B.  Changes Since RFC 6304
 
@@ -1245,7 +1251,7 @@ Appendix B.  Changes Since RFC 6304
       additional zones delegated for sinking or removed using the DNAME
       resource record.
 
-   o  Requisite changes to the advice regarding the configuration of
+   o  Requisite changes to the guidance regarding the configuration of
       current and future AS112 nodes.
 
    o  Further clarification about the leakage of information in the
@@ -1276,12 +1282,6 @@ C.3.  draft-ietf-dnsop-rfc6304bis-01
    Correct "Obsoletes" header in document metadata from "RFC6304" to
    "6304" as requested by Tim Wicinski.
 
-C.4.  draft-ietf-dnsop-rfc6304bis-02
-
-   Add IPv6 details for Direct Delegation AS112 service, including IANA
-   considerations to add AAAA RRs to PRISONER.IANA.ORG and friends.
-
-
 
 
 
@@ -1289,6 +1289,11 @@ Abley & Sotomayor         Expires May 24, 2015                 [Page 23]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+C.4.  draft-ietf-dnsop-rfc6304bis-02
+
+   Add IPv6 details for Direct Delegation AS112 service, including IANA
+   considerations to add AAAA RRs to PRISONER.IANA.ORG and friends.
 
    Add IANA considerations that will add AS112 to the "Special-Purpose
    AS Numbers" registry, as created in [RFC7249].
@@ -1324,6 +1329,8 @@ C.7.  draft-ietf-dnsop-rfc6304bis-05
    Amend AS112 DNS Service section slightly to remove references to RFC
    6304 and make this a little more standalone.
 
+   Add a paragraph about logging.
+
    Expand the first paragraph in the Security Considerations section to
    include a word on the logging of such leaked information.
 
@@ -1332,19 +1339,17 @@ C.7.  draft-ietf-dnsop-rfc6304bis-05
 
    Add another reference to RFC 6305 in Communication section.
 
-   Add some more missing changes suggested during RFC 6304 AUTH48 phase.
-
-   Re-sync some more language with RFC 6304 after another edit round
-   post-AUTH48 that was missing from the current draft.
-
-
-
 
 
 Abley & Sotomayor         Expires May 24, 2015                 [Page 24]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
+
+   Add some more missing changes suggested during RFC 6304 AUTH48 phase.
+
+   Re-sync some more language with RFC 6304 after another edit round
+   post-AUTH48 that was missing from the current draft.
 
    Expand the TXT record return to include info about the unique IP of
    the AS112 node.
@@ -1371,11 +1376,6 @@ Authors' Addresses
    Canada
 
    Email: wmaton@ottix.net
-
-
-
-
-
 
 
 
