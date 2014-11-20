@@ -32,8 +32,8 @@
     'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7249.xml'>
 ]>
 
-<rfc category="info" ipr="trust200902"
-  docName="draft-ietf-dnsop-rfc6304bis-04"
+<rfc category="bcp" ipr="trust200902"
+  docName="draft-ietf-dnsop-rfc6304bis-05"
   obsoletes="6304">
 
 <?rfc toc="yes" ?>
@@ -75,7 +75,7 @@
       </address>
     </author>
 
-    <date day="31" month="July" year="2014"/>
+    <date day="19" month="November" year="2014"/>
 
     <abstract>
       <t>Many sites connected to the Internet make use of IPv4 addresses
