@@ -4,7 +4,7 @@
 
 Network Working Group                                           J. Abley
 Internet-Draft                                                 Dyn, Inc.
-Obsoletes: 6304 (if approved)                                   W. Maton
+Obsoletes: 6304 (if approved)                               W. Sotomayor
 Intended status: Best Current Practice                             OttIX
 Expires: May 24, 2015                                  November 20, 2014
 
@@ -53,7 +53,7 @@ Status of This Memo
 
 
 
-Abley & Maton             Expires May 24, 2015                  [Page 1]
+Abley & Sotomayor         Expires May 24, 2015                  [Page 1]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -109,7 +109,7 @@ Table of Contents
 
 
 
-Abley & Maton             Expires May 24, 2015                  [Page 2]
+Abley & Sotomayor         Expires May 24, 2015                  [Page 2]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -128,15 +128,16 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
      11.2.  Informative References . . . . . . . . . . . . . . . . .  21
      11.3.  URIs . . . . . . . . . . . . . . . . . . . . . . . . . .  21
    Appendix A.  History  . . . . . . . . . . . . . . . . . . . . . .  22
-   Appendix B.  Revision History and Venue . . . . . . . . . . . . .  23
-     B.1.  draft-jabley-dnsop-rfc6304bis-00  . . . . . . . . . . . .  23
-     B.2.  draft-ietf-dnsop-rfc6304bis-00  . . . . . . . . . . . . .  23
-     B.3.  draft-ietf-dnsop-rfc6304bis-01  . . . . . . . . . . . . .  23
-     B.4.  draft-ietf-dnsop-rfc6304bis-02  . . . . . . . . . . . . .  23
-     B.5.  draft-ietf-dnsop-rfc6304bis-03  . . . . . . . . . . . . .  23
-     B.6.  draft-ietf-dnsop-rfc6304bis-04  . . . . . . . . . . . . .  23
-     B.7.  draft-ietf-dnsop-rfc6304bis-05  . . . . . . . . . . . . .  24
-   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  24
+   Appendix B.  Changes Since RFC 6304 . . . . . . . . . . . . . . .  23
+   Appendix C.  Revision History and Venue . . . . . . . . . . . . .  23
+     C.1.  draft-jabley-dnsop-rfc6304bis-00  . . . . . . . . . . . .  23
+     C.2.  draft-ietf-dnsop-rfc6304bis-00  . . . . . . . . . . . . .  23
+     C.3.  draft-ietf-dnsop-rfc6304bis-01  . . . . . . . . . . . . .  23
+     C.4.  draft-ietf-dnsop-rfc6304bis-02  . . . . . . . . . . . . .  23
+     C.5.  draft-ietf-dnsop-rfc6304bis-03  . . . . . . . . . . . . .  24
+     C.6.  draft-ietf-dnsop-rfc6304bis-04  . . . . . . . . . . . . .  24
+     C.7.  draft-ietf-dnsop-rfc6304bis-05  . . . . . . . . . . . . .  24
+   Authors' Addresses  . . . . . . . . . . . . . . . . . . . . . . .  25
 
 1.  NOTE TO RFC EDITOR AND REVIEWERS
 
@@ -155,7 +156,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    The delegation of the AS112.ARPA zone is specified (and requested) in
    [I-D.ietf-dnsop-as112-dname].
 
-   See Appendix B for an abridged revision history, and discussion of an
+   See Appendix C for an abridged revision history, and discussion of an
    appropriate venue for discussion.
 
    This section should be removed prior to publication.
@@ -164,8 +165,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-
-Abley & Maton             Expires May 24, 2015                  [Page 3]
+Abley & Sotomayor         Expires May 24, 2015                  [Page 3]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -221,7 +221,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                  [Page 4]
+Abley & Sotomayor         Expires May 24, 2015                  [Page 4]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -277,7 +277,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                  [Page 5]
+Abley & Sotomayor         Expires May 24, 2015                  [Page 5]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -333,7 +333,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                  [Page 6]
+Abley & Sotomayor         Expires May 24, 2015                  [Page 6]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -389,7 +389,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                  [Page 7]
+Abley & Sotomayor         Expires May 24, 2015                  [Page 7]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -445,7 +445,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                  [Page 8]
+Abley & Sotomayor         Expires May 24, 2015                  [Page 8]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -501,7 +501,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                  [Page 9]
+Abley & Sotomayor         Expires May 24, 2015                  [Page 9]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -557,7 +557,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 10]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 10]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -613,7 +613,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 11]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 11]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -669,7 +669,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 12]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 12]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -725,7 +725,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 13]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 13]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -745,6 +745,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
    ;
            TXT     "Name of Facility or similar" "City, Country"
            TXT     "See http://www.as112.net/ for more information."
+           TXT     "Unique IP: 203.0.113.1."
    ;
            LOC     45 25 0.000 N 75 42 0.000 W 80.00m 1m 10000m 10m
 
@@ -780,8 +781,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-
-Abley & Maton             Expires May 24, 2015                 [Page 14]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 14]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -837,7 +837,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 15]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 15]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -893,7 +893,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 16]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 16]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -949,7 +949,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 17]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 17]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -1005,7 +1005,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 18]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 18]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -1061,7 +1061,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 19]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 19]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -1117,7 +1117,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 20]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 20]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -1173,7 +1173,7 @@ Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 21]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 21]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
@@ -1229,12 +1229,26 @@ Appendix A.  History
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 22]
+Abley & Sotomayor         Expires May 24, 2015                 [Page 22]
 
 Internet-Draft         AS112 Nameserver Operations         November 2014
 
 
-Appendix B.  Revision History and Venue
+Appendix B.  Changes Since RFC 6304
+
+   A number of changes and enhancements to the AS112 service has been
+   introduced since the publication of [RFC6304].
+
+   o  The addition of IPv6 transport.
+
+   o  The extension of the AS112 service to include the ability to have
+      additional zones delegated for sinking or removed using the DNAME
+      resource record.
+
+   o  Requisite change to the advice regarding the configuration of
+      current and future AS112 nodes.
+
+Appendix C.  Revision History and Venue
 
    A suitable venue for discussion of this document is the dnsop working
    group.  Private comments may also be directed at the authors.
@@ -1242,21 +1256,21 @@ Appendix B.  Revision History and Venue
    This section (and sub-sections) should be removed prior to
    publication.
 
-B.1.  draft-jabley-dnsop-rfc6304bis-00
+C.1.  draft-jabley-dnsop-rfc6304bis-00
 
    Initial revision of [RFC6304] intended to provide guidance consistent
    with [I-D.ietf-dnsop-as112-dname].
 
-B.2.  draft-ietf-dnsop-rfc6304bis-00
+C.2.  draft-ietf-dnsop-rfc6304bis-00
 
    Change of filename following working group adoption.
 
-B.3.  draft-ietf-dnsop-rfc6304bis-01
+C.3.  draft-ietf-dnsop-rfc6304bis-01
 
    Correct "Obsoletes" header in document metadata from "RFC6304" to
    "6304" as requested by Tim Wicinski.
 
-B.4.  draft-ietf-dnsop-rfc6304bis-02
+C.4.  draft-ietf-dnsop-rfc6304bis-02
 
    Add IPv6 details for Direct Delegation AS112 service, including IANA
    considerations to add AAAA RRs to PRISONER.IANA.ORG and friends.
@@ -1266,11 +1280,21 @@ B.4.  draft-ietf-dnsop-rfc6304bis-02
 
    Merge in some AUTH48 changes from RFC6304 that had been overlooked.
 
-B.5.  draft-ietf-dnsop-rfc6304bis-03
+
+
+
+
+
+Abley & Sotomayor         Expires May 24, 2015                 [Page 23]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
+
+C.5.  draft-ietf-dnsop-rfc6304bis-03
 
    Change reference from RFC 5735 to RFC 6890.
 
-B.6.  draft-ietf-dnsop-rfc6304bis-04
+C.6.  draft-ietf-dnsop-rfc6304bis-04
 
    Add change section for -03 that was previously overlooked.
 
@@ -1283,14 +1307,7 @@ B.6.  draft-ietf-dnsop-rfc6304bis-04
 
    Add shout-out to Pearl and Leo.
 
-
-
-Abley & Maton             Expires May 24, 2015                 [Page 23]
-
-Internet-Draft         AS112 Nameserver Operations         November 2014
-
-
-B.7.  draft-ietf-dnsop-rfc6304bis-05
+C.7.  draft-ietf-dnsop-rfc6304bis-05
 
    As per IESG review and a replay of the same comment from Pete Resnick
    made of the review of the draft of RFC 6304, switch from
@@ -1312,7 +1329,22 @@ B.7.  draft-ietf-dnsop-rfc6304bis-05
    Re-sync some more language with RFC 6304 after another edit round
    post-AUTH48.
 
+   Expand the TXT record return to include info about the unique IP of
+   the AS112 node.
+
    Add shout-out to Aleksi Suhonen.
+
+
+
+
+
+
+
+
+Abley & Sotomayor         Expires May 24, 2015                 [Page 24]
+
+Internet-Draft         AS112 Nameserver Operations         November 2014
+
 
 Authors' Addresses
 
@@ -1341,4 +1373,28 @@ Authors' Addresses
 
 
 
-Abley & Maton             Expires May 24, 2015                 [Page 24]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Abley & Sotomayor         Expires May 24, 2015                 [Page 25]

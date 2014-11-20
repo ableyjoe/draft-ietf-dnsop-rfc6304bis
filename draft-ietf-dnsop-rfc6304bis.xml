@@ -60,7 +60,7 @@
       </address>
     </author>
 
-    <author initials='W.' surname="Maton" fullname='William F. Maton Sotomayor'>
+    <author initials='W.' surname="Sotomayor" fullname='William F. Maton Sotomayor'>
       <organization abbrev="OttIX">Ottawa Internet Exchange</organization>
       <address>
         <postal>
@@ -694,6 +694,7 @@ $TTL    1W
 ;
         TXT     "Name of Facility or similar" "City, Country"
         TXT     "See http://www.as112.net/ for more information."
+        TXT     "Unique IP: 203.0.113.1."
 ;
         LOC     45 25 0.000 N 75 42 0.000 W 80.00m 1m 10000m 10m
           </artwork>
@@ -1101,6 +1102,24 @@ $TTL    1W
        various root servers).</t>
     </section>
 
+    <section title="Changes Since RFC 6304" anchor="rfc6304changes">
+       <t>A number of changes and enhancements to the AS112 service
+         has been introduced since the publication of <xref 
+         target="RFC6304"/>.
+
+         <list style="symbols">
+           <t>The addition of IPv6 transport.</t>
+
+           <t>The extension of the AS112 service to include the ability
+             to have additional zones delegated for sinking or removed
+             using the DNAME resource record.</t>
+
+           <t>Requisite change to the advice regarding the configuration
+             of current and future AS112 nodes.</t>
+         </list>
+       </t>
+    </section>
+
     <section title="Revision History and Venue" anchor="revisionHistory">
       <t>A suitable venue for discussion of this document is the dnsop
         working group. Private comments may also be directed at the
@@ -1176,6 +1195,9 @@ $TTL    1W
 
         <t>Re-sync some more language with RFC 6304 after another edit
           round post-AUTH48.</t>
+
+        <t>Expand the TXT record return to include info about the unique
+          IP of the AS112 node.</t>
 
         <t>Add shout-out to Aleksi Suhonen.</t>
       </section>
