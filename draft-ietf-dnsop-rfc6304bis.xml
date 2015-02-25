@@ -32,8 +32,8 @@
     'http://xml2rfc.ietf.org/public/rfc/bibxml/reference.RFC.7249.xml'>
 ]>
 
-<rfc category="bcp" ipr="trust200902"
-  docName="draft-ietf-dnsop-rfc6304bis-05"
+<rfc category="info" ipr="trust200902"
+  docName="draft-ietf-dnsop-rfc6304bis-06"
   obsoletes="6304">
 
 <?rfc toc="yes" ?>
@@ -75,7 +75,7 @@
       </address>
     </author>
 
-    <date day="21" month="January" year="2015"/>
+    <date day="14" month="February" year="2015"/>
 
     <abstract>
       <t>Many sites connected to the Internet make use of IPv4 addresses
@@ -1218,6 +1218,11 @@ $TTL    1W
           IP of the AS112 node.</t>
 
         <t>Add shout-out to Aleksi Suhonen.</t>
+      </section>
+
+      <section title="draft-ietf-dnsop-rfc6304bis-06">
+        <t>As per WG Chairs, switch from Best Current Practice to
+          Informational.</t>
       </section>
     </section>
   </back>
